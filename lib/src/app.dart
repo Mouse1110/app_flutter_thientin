@@ -1,0 +1,31 @@
+import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
+import 'package:app_flutter_thientin/src/login/index.dart';
+import 'package:app_flutter_thientin/src/login/repository/api_repository.dart';
+import 'package:flutter/material.dart';
+
+import 'login/service/api_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class MyApp extends StatelessWidget {
+  MyApp({Key? key}) : super(key: key);
+  final ApiService apiService = ApiService();
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (context) =>
+              LoginCubit(apiRepository: ApiRepository(apiService: apiService)),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const Login(),
+      ),
+    );
+  }
+}
