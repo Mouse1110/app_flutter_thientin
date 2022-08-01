@@ -11,5 +11,6 @@ class ApiRepository {
       final data = response.data as dynamic;
       return User.fromMap(data['data']);
     }
+    return null;
   }
 }

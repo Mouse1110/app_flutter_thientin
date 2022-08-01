@@ -6,10 +6,11 @@ class ApiService {
 
   Future<Response?> postLogin() async {
     try {
-      final Response? response = await _dio.post('$baseUrl${params['login']}');
+      final Response response = await _dio.post('$baseUrl${params['login']}');
       return response;
     } catch (e) {
       print('error request :$e');
+      return null;
     }
   }
 }
