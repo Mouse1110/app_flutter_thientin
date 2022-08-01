@@ -26,3 +26,12 @@ class LoginError extends LoginState {
   @override
   List<Object> get props => [failure];
 }
+
+class LoginNav extends LoginState {
+  final Widget page;
+  const LoginNav({required this.page});
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [page];
+}

@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<LoginCubit>(
           create: (context) =>
-              LoginCubit(apiRepository: ApiRepository(apiService: apiService)),
+              LoginCubit(apiRepository: ApiRepository(apiService: apiService))
+                ..nav(),
         )
       ],
       child: MaterialApp(

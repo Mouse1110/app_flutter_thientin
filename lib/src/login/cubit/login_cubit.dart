@@ -1,5 +1,6 @@
 import 'package:app_flutter_thientin/src/login/models/failure_model.dart';
 import 'package:app_flutter_thientin/src/login/repository/api_repository.dart';
+import 'package:app_flutter_thientin/src/login/screens/index_page/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,5 +22,9 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       print('Error:$e');
     }
+  }
+
+  Future<void> nav({Widget? page}) async {
+    emit(LoginNav(page: page ?? const IndexLoginPage()));
   }
 }
