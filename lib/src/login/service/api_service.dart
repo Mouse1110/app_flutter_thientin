@@ -4,7 +4,10 @@ import 'package:dio/dio.dart';
 class ApiService {
   final Dio _dio = Dio();
 
-  Future<Response?> postLogin() async {
+  Future<Response?> postLogin({
+    required String phone,
+    required String pass,
+  }) async {
     try {
       final Response response = await _dio.post('$baseUrl${params['login']}');
       return response;

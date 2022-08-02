@@ -1,18 +1,16 @@
 import 'package:app_flutter_thientin/src/home/index.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
-import 'package:app_flutter_thientin/src/utils/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Home> createState() => _HomeState();
 }
 
-class _LoginState extends State<Login> {
-  final BlocNavigator blocNavigator = BlocNavigator();
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
@@ -29,13 +27,14 @@ class _LoginState extends State<Login> {
           child: Text(state.failure.message),
         );
       } else if (state is LoginLoaded) {
-        print("Login Loaded");
-        return const SizedBox.shrink();
-      } else if (state is LoginNav) {
-        print("Login Nav");
-        return state.page;
+        print("Login Loaded ${state.props}");
       }
-      return const SizedBox.shrink();
+      print("Loading");
+      return const Scaffold(
+        body: Center(
+          child: Text('dasds'),
+        ),
+      );
     });
   }
 }

@@ -58,6 +58,9 @@ class _BottomPageState extends State<BottomPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        context
+                            .read<LoginCubit>()
+                            .fetchLoginApi(phone: '0382292563', pass: 'admin');
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(builder: (context) => SignUp()),
