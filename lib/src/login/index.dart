@@ -4,8 +4,6 @@ import 'package:app_flutter_thientin/src/utils/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'screens/login_page/index.dart';
-
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -31,11 +29,13 @@ class _LoginState extends State<Login> {
           child: Text(state.failure.message),
         );
       } else if (state is LoginLoaded) {
-        print("Login Loaded ${state.props}");
-        blocNavigator.push(context: context, page: const Home());
+        print("Login Loaded");
+        return const SizedBox.shrink();
+      } else if (state is LoginNav) {
+        print("Login Nav");
+        return state.page;
       }
-      print("Loading");
-      return const IndexLoginPage();
+      return const SizedBox.shrink();
     });
   }
 }

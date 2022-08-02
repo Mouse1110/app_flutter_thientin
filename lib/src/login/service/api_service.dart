@@ -9,12 +9,11 @@ class ApiService {
     required String pass,
   }) async {
     try {
-      final Response response = await _dio.post(
-          'http://103.110.84.245:5050/v1/login',
-          data: {"phone": phone, "pass": pass});
+      final Response response = await _dio.post('$baseUrl${params['login']}');
       return response;
     } catch (e) {
       print('error request :$e');
+      return null;
     }
   }
 }
