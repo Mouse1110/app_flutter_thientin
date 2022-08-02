@@ -11,10 +11,11 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required this.apiRepository}) : super(LoginInitial());
   final ApiRepository apiRepository;
 
-  Future<void> fetchLoginApi() async {
+  Future<void> fetchLoginApi(
+      {required String phone, required String pass}) async {
     emit(LoginLoading());
     try {
-      final User? user = await apiRepository.login();
+      final User? user = await apiRepository.login(phone: phone, pass: pass);
       emit(LoginLoaded(user: user!));
     } on Failure catch (e) {
       emit(LoginError(failure: e));
