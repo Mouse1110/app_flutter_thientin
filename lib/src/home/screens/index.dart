@@ -1,5 +1,3 @@
- 
-import 'package:app_flutter_thientin/src/home/homepage.dart/ItemCampain_page.dart';
 import 'package:app_flutter_thientin/src/home/screens/index.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'components/campain_new_page.dart';
+import 'components/itemCampain_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.w700,
                             color: Color.fromRGBO(35, 45, 94, 1))),
                   ),
-                 ItemCampainnew(),
+                  ItemCampainnew(),
                   SizedBox(
                     height: 10,
                   ),
