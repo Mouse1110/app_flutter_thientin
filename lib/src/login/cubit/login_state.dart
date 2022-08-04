@@ -32,6 +32,5 @@ class LoginNav extends LoginState {
   const LoginNav({required this.page});
 
   @override
-  // TODO: implement props
   List<Object> get props => [page];
 }
