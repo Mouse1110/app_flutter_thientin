@@ -9,6 +9,19 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
-class HomeLoaded extends HomeState {}
-class HomeError extends HomeState {}
+class HomeLoaded extends HomeState {
+    const HomeLoaded({required this.user});
+  final Campaign user;
 
+  @override
+  List<Object> get props => [user];
+}
+class HomeError extends HomeState {
+    final Failure failure;
+  const HomeError({required this.failure});
+
+  @override
+  List<Object> get props => [failure];
+}
+
+ 
