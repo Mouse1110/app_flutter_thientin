@@ -1,10 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
+import 'package:app_flutter_thientin/src/apply/cubit/apply_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ApplyPage extends StatefulWidget {
   @override
@@ -130,7 +127,9 @@ class _ApplyPageState extends State<ApplyPage> {
               ],
             )),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                context.read<ApplyCubit>().fetchApplyApi();
+              },
               child: Container(
                 height: 50,
                 width: double.infinity,

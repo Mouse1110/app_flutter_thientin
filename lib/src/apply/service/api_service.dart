@@ -1,4 +1,4 @@
-import 'package:app_flutter_thientin/src/login/constants/api_contants.dart';
+import 'package:app_flutter_thientin/src/apply/constants/api_constants.dart';
 import 'package:dio/dio.dart';
 
 class ApiService {
