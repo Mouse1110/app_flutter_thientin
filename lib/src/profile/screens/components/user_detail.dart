@@ -1,17 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserDetail extends StatefulWidget {
-
   @override
   State<UserDetail> createState() => _UserDetailState();
 }
 
 class _UserDetailState extends State<UserDetail> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +21,7 @@ class _UserDetailState extends State<UserDetail> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.asset(
-                 'assets/icon.png',
+                  'assets/icon.png',
                   // 'assets/user.png',
                   height: 60.0,
                   width: 60.0,
@@ -40,7 +36,7 @@ class _UserDetailState extends State<UserDetail> {
                   Row(
                     children: [
                       Text(
-                       'Mach Tan Tai',
+                        'Mach Tan Tai',
                         style: GoogleFonts.roboto(
                           color: Colors.black,
                           fontSize: 18,
@@ -83,7 +79,6 @@ class _UserDetailState extends State<UserDetail> {
                                                 padding:
                                                     const EdgeInsets.all(16.0),
                                                 child: TextFormField(
-                                               
                                                   onChanged: (value) {},
                                                   decoration: InputDecoration(
                                                       hintText: '',
@@ -103,28 +98,19 @@ class _UserDetailState extends State<UserDetail> {
                                               ),
                                               Row(
                                                 children: [
-                                                
-                                                      Text(
-                                                          'Tải hình ảnh lên',
-                                                          style: GoogleFonts
-                                                              .raleway(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    35,
-                                                                    45,
-                                                                    94,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                    
+                                                  Text(
+                                                    'Tải hình ảnh lên',
+                                                    style: GoogleFonts.raleway(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Color.fromRGBO(
+                                                          35, 45, 94, 1),
+                                                    ),
+                                                  ),
                                                   SizedBox(width: 20),
                                                   InkWell(
-                                                    onTap: () async {
-                                                     
-                                                    },
+                                                    onTap: () async {},
                                                     // => pickImage(
                                                     //     ImageSource.gallery),
                                                     child: Container(
@@ -187,21 +173,23 @@ class _UserDetailState extends State<UserDetail> {
                                                             color:
                                                                 Colors.black)),
                                                   ),
-                                                  RaisedButton(
-                                                    onPressed: () {
-                                                      
-                                                    },
-                                                    color: Colors.green,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 10),
-                                                    elevation: 2,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20)),
+                                                  ElevatedButton(
+                                                    onPressed: () {},
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          Colors.green,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 10),
+                                                      elevation: 2,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20)),
+                                                    ),
                                                     child: Text(
                                                       "SAVE",
                                                       style: TextStyle(
