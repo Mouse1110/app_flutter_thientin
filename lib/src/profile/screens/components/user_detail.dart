@@ -177,8 +177,6 @@ class _UserDetailState extends State<UserDetail> {
                                                     onPressed: () {},
                                                     style: ElevatedButton
                                                         .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.green,
                                                       padding:
                                                           EdgeInsets.symmetric(
                                                               horizontal: 10),
