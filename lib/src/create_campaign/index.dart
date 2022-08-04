@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'screens/create_campaign_image/index.dart';
 import 'screens/create_campaign_page/index.dart';
 
 class CreateCampaign extends StatefulWidget {
@@ -12,6 +13,6 @@ class CreateCampaign extends StatefulWidget {
 class _CreateCampaignState extends State<CreateCampaign> {
   @override
   Widget build(BuildContext context) {
-    return CreateCampaignPage();
+    return CampaignImagePage();
   }
 }

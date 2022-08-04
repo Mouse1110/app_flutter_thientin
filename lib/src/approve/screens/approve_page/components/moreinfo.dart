@@ -24,7 +24,11 @@ class _MoreInfoState extends State<MoreInfo> {
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back)),
             ),
             Expanded(
               child: SingleChildScrollView(

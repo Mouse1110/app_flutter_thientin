@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 
+import 'components/moreinfo.dart';
+
 class ApprovePage extends StatefulWidget {
   const ApprovePage({super.key});
 
@@ -115,7 +117,10 @@ class _ApprovePageState extends State<ApprovePage> {
                 ],
               ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MoreInfo()));
+                  },
                   child: Text(
                     'Xem thêm',
                     style: GoogleFonts.inter(

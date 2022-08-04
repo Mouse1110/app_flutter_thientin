@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'screens/approve_page/index.dart';
-import 'screens/moreinfo_page/index.dart';
 
 class Approve extends StatefulWidget {
   const Approve({super.key});
