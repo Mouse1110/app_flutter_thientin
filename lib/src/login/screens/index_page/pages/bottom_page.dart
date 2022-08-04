@@ -1,8 +1,8 @@
-import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/login/screens/login_page/index.dart';
+import 'package:app_flutter_thientin/src/login/screens/signup_page/index.dart';
 import 'package:app_flutter_thientin/src/utils/color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import '../components/title.dart';
 
@@ -36,8 +36,7 @@ class _BottomPageState extends State<BottomPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        context.read<LoginCubit>().nav(page: const LoginPage());
-                        // Nav.nextPage(context: context, page: Loginnew());
+                        LoginPage.push(context: context);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 0, 0, 0),
@@ -58,13 +57,7 @@ class _BottomPageState extends State<BottomPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        context
-                            .read<LoginCubit>()
-                            .fetchLoginApi(phone: '0382292563', pass: 'admin');
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => SignUp()),
-                        // );
+                        SignUpPage.push(context: context);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 255, 255, 255),
