@@ -22,10 +22,11 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginError(failure: e));
     } catch (e) {
       print('Error:$e');
+      emit(LoginError(failure: Failure(message: '$e')));
     }
   }
 
-  Future<void> nav({Widget? page}) async {
+  Future nav({Widget? page}) async {
     emit(LoginNav(page: page ?? const IndexLoginPage()));
   }
 }

@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,15 +26,19 @@ class IndexLoginPage extends StatelessWidget {
               height: 60,
             ),
             Center(
-              child: Image.asset('assets/icon.png'),
+              child: Image.asset(
+                'assets/icon.png',
+                width: 128,
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
               'Làm việc thiện phải có chữ tín',
+              textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
-                  fontSize: 24,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
@@ -45,5 +50,15 @@ class IndexLoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static Future<void> push({required BuildContext context}) async {
+    context.read<LoginCubit>().nav(
+          page: const IndexLoginPage(),
+        );
+  }
+
+  static Future<void> pop({required BuildContext context}) async {
+    SystemNavigator.pop();
   }
 }

@@ -1,5 +1,3 @@
-const String baseUrl = '';
+const String baseUrl = 'http';
 
-const dynamic params = {
-  "login": "",
-};
+const dynamic params = {"login": "login", "signup": "signup"};
