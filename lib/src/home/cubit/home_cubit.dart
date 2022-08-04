@@ -14,10 +14,10 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchCampaignApi({required String accessToken}) async {
     emit(HomeLoading());
     try {
-      final Campaign? user =
+      final CampaignModel? campaign =
           await apiRepository.campaign(accessToken: accessToken);
 
-      emit(HomeLoaded(user: user!));
+      emit(HomeLoaded(campaign: campaign!));
     } on Failure catch (e) {
       emit(HomeError(failure: e));
     } catch (e) {

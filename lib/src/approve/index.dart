@@ -12,6 +12,6 @@ class Approve extends StatefulWidget {
 class _ApproveState extends State<Approve> {
   @override
   Widget build(BuildContext context) {
-    return ApprovePage();
+    return const ApprovePage();
   }
 }

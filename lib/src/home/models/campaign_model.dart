@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class Campaign {
-  Campaign({
+class CampaignModel {
+  CampaignModel({
     required this.idCaimpain,
     required this.owner,
     required this.user,
@@ -27,11 +27,12 @@ class Campaign {
   List<CheckList> checkList;
   Info info;
 
-  factory Campaign.fromJson(String str) => Campaign.fromMap(json.decode(str));
+  factory CampaignModel.fromJson(String str) =>
+      CampaignModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Campaign.fromMap(Map<String, dynamic> json) => Campaign(
+  factory CampaignModel.fromMap(Map<String, dynamic> json) => CampaignModel(
         idCaimpain: json["id_caimpain"],
         owner: json["owner"],
         user: User.fromMap(json["user"]),

@@ -7,9 +7,9 @@ class ApiRepository {
   final ApiService apiService;
   Future<User?> login({required String phone, required String pass}) async {
     final response = await apiService.postLogin(phone: phone, pass: pass);
+    print(response);
     if (response != null) {
-      print(response.data);
-      final data = response.data as dynamic;
+      final data = response.data['data'] as dynamic;
       return User.fromMap(data);
     }
     return null;

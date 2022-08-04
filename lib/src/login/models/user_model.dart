@@ -13,7 +13,7 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> json) => User(
         accessToken: json["accessToken"],
-        data: Data.fromMap(json["data"]),
+        data: Data.fromMap(json["user"]),
       );
 }
 

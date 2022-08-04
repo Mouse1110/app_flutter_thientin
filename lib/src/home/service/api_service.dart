@@ -19,6 +19,9 @@ class ApiService {
               ));
       print(response);
       return response;
+    } on DioError catch (e) {
+      print(e.response!.data);
+      throw Exception(e.response!.data["message"]);
     } catch (e) {
       print('error request :$e');
       return null;
@@ -38,6 +41,9 @@ class ApiService {
             },
           ));
       return response;
+    } on DioError catch (e) {
+      print(e.response!.data);
+      throw Exception(e.response!.data["message"]);
     } catch (e) {
       print('error request :$e');
       return null;

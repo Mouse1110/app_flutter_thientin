@@ -3,6 +3,7 @@ import 'package:app_flutter_thientin/src/apply/index.dart';
 import 'package:app_flutter_thientin/src/home/cubit/home_cubit.dart';
 import 'package:app_flutter_thientin/src/home/repository/api_repository.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
+import 'package:app_flutter_thientin/src/login/index.dart';
 import 'package:app_flutter_thientin/src/login/repository/api_repository.dart';
 import 'package:app_flutter_thientin/src/apply/repository/api_repository.dart';
 import 'package:app_flutter_thientin/src/profile/screens/index.dart';
@@ -27,17 +28,14 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 ApplyCubit(apiRepository: ApiApplyRepository())),
         BlocProvider<HomeCubit>(
-            create: (context) => HomeCubit(apiRepository: ApiHomeRepository())
-              ..fetchCampaignApi(
-                  accessToken:
-                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNzQzYTA3ZTg5ZGNiMzM5OWVmYzMxOTZmZWRlZDhlYzkiLCJpYXQiOjE2NTk2MTAyMzgsImV4cCI6MTY1OTY5NjYzOH0.wJf1BID7Eml7AoEYeoCRkAeM02D1MiCUTz3n3gyYnWg'))
+            create: (context) => HomeCubit(apiRepository: ApiHomeRepository()))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:  ProfilePage(),
+        home: const Login(),
       ),
     );
   }

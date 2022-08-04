@@ -17,6 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     try {
       final User? user = await apiRepository.login(phone: phone, pass: pass);
+      this.user = user;
       emit(LoginLoaded(user: user!));
     } on Failure catch (e) {
       emit(LoginError(failure: e));
@@ -29,4 +30,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future nav({Widget? page}) async {
     emit(LoginNav(page: page ?? const IndexLoginPage()));
   }
+
+  /// Data global
+  User? user;
 }

@@ -1,11 +1,63 @@
+import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/login/screens/signup_page/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BottomPage extends StatelessWidget {
+class BottomPage extends StatefulWidget {
   const BottomPage({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<BottomPage> createState() => _BottomPageState();
+}
+
+class _BottomPageState extends State<BottomPage> {
+  TextEditingController textControllerPhone = TextEditingController();
+  TextEditingController textControllerPass = TextEditingController();
+
+  @override
+  void dispose() {
+    textControllerPhone.dispose();
+    textControllerPass.dispose();
+    super.dispose();
+  }
+
+  Widget _inputPhone() => Padding(
+        padding: const EdgeInsets.only(left: 40, right: 40),
+        child: TextFormField(
+          controller: textControllerPhone,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.phone),
+              hintText: 'Số điện thoại',
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(20),
+              )),
+        ),
+      );
+
+  Widget _inputPass() => Padding(
+        padding: const EdgeInsets.only(left: 40, right: 40),
+        child: TextFormField(
+          controller: textControllerPass,
+          decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.lock),
+              hintText: 'Mật khẩu',
+              suffixIcon:
+                  InkWell(onTap: () {}, child: const Icon(Icons.visibility)),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(20),
+              )),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -27,45 +79,21 @@ class BottomPage extends StatelessWidget {
           const SizedBox(
             height: 60,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40),
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.phone),
-                  hintText: 'Số điện thoại',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  )),
-            ),
-          ),
+          _inputPhone(),
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40),
-            child: TextFormField(
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock),
-                  hintText: 'Mật khẩu',
-                  suffixIcon: InkWell(
-                      onTap: () {}, child: const Icon(Icons.visibility)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  )),
-            ),
-          ),
+          _inputPass(),
           const SizedBox(
             height: 30,
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              print(textControllerPhone.text);
+              context.read<LoginCubit>().fetchLoginApi(
+                  phone: textControllerPhone.text,
+                  pass: textControllerPass.text);
+            },
             style: ElevatedButton.styleFrom(
               primary: const Color.fromARGB(255, 0, 0, 0),
               shape: RoundedRectangleBorder(
