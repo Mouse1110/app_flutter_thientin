@@ -1,4 +1,4 @@
- 
+
 import 'package:app_flutter_thientin/src/home/screens/index.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.w700,
                             color: Color.fromRGBO(35, 45, 94, 1))),
                   ),
-                 ItemCampainnew(),
+                  ItemCampainnew(),
                   SizedBox(
                     height: 10,
                   ),
