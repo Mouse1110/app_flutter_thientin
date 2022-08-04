@@ -1,6 +1,9 @@
+import 'package:app_flutter_thientin/src/apply/cubit/apply_cubit.dart';
+import 'package:app_flutter_thientin/src/apply/index.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/login/index.dart';
 import 'package:app_flutter_thientin/src/login/repository/api_repository.dart';
+import 'package:app_flutter_thientin/src/apply/repository/api_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'login/service/api_service.dart';
@@ -16,14 +19,17 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<LoginCubit>(
             create: (context) => LoginCubit(
-                apiRepository: ApiRepository(apiService: apiService)))
+                apiRepository: ApiRepository(apiService: apiService))),
+        BlocProvider<ApplyCubit>(
+            create: (context) =>
+                ApplyCubit(apiRepository: ApiApplyRepository()))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const Login(),
+        home: const Apply(),
       ),
     );
   }
