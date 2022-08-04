@@ -1,4 +1,4 @@
-import 'package:app_flutter_thientin/src/home/index.dart';
+import 'package:app_flutter_thientin/src/home/screens/index.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/utils/navigator.dart';
 import 'package:flutter/material.dart';
