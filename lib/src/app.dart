@@ -15,10 +15,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginCubit>(
-          create: (context) =>
-              LoginCubit(apiRepository: ApiRepository(apiService: apiService))
-                ..nav(),
-        )
+            create: (context) => LoginCubit(
+                apiRepository: ApiRepository(apiService: apiService)))
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

@@ -1,7 +1,12 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
+import 'package:app_flutter_thientin/src/login/screens/index_page/index.dart';
 import 'package:app_flutter_thientin/src/utils/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'pages/bottom_login.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -47,8 +52,25 @@ class LoginPage extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
+          Expanded(
+              child: FadeInUp(
+            duration: const Duration(milliseconds: 600),
+            child: const BottomPage(),
+          )),
         ],
       ),
     );
+  }
+
+  static Future<void> push({required BuildContext context}) async {
+    context.read<LoginCubit>().nav(
+          page: const LoginPage(),
+        );
+  }
+
+  static Future<void> pop({required BuildContext context}) async {
+    context.read<LoginCubit>().nav(
+          page: const IndexLoginPage(),
+        );
   }
 }
