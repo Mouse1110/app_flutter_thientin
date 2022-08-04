@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/info.dto.dart';
+import '../models/info.dart';
 import 'components/info_detail.dart';
 import 'components/item_action.dart';
 import 'components/user_detail.dart';
