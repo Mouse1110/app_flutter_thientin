@@ -1,13 +1,39 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserDetail extends StatefulWidget {
+  UserDetail({Key? key, required this.name}) : super(key: key);
+  final String name;
+
   @override
   State<UserDetail> createState() => _UserDetailState();
 }
 
 class _UserDetailState extends State<UserDetail> {
+  String imagePath = '';
+  File? image;
+  File? name;
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      print(image!.path);
+
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      imagePath = image.path;
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('Fail');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +62,7 @@ class _UserDetailState extends State<UserDetail> {
                   Row(
                     children: [
                       Text(
-                        'Mach Tan Tai',
+                        widget.name,
                         style: GoogleFonts.roboto(
                           color: Colors.black,
                           fontSize: 18,
@@ -98,21 +124,58 @@ class _UserDetailState extends State<UserDetail> {
                                               ),
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    'Tải hình ảnh lên',
-                                                    style: GoogleFonts.raleway(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Color.fromRGBO(
-                                                          35, 45, 94, 1),
-                                                    ),
+                                                  Expanded(
+                                                    child: image == null
+                                                        ? Text(
+                                                            'Tải hình ảnh lên',
+                                                            style: GoogleFonts
+                                                                .raleway(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      35,
+                                                                      45,
+                                                                      94,
+                                                                      1),
+                                                            ),
+                                                          )
+                                                        : Image.file(
+                                                            image!,
+                                                            height: 128,
+                                                            width: 128,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                   ),
                                                   SizedBox(width: 20),
                                                   InkWell(
-                                                    onTap: () async {},
-                                                    // => pickImage(
-                                                    //     ImageSource.gallery),
+                                                    onTap: () async {
+                                                      try {
+                                                        final image =
+                                                            await ImagePicker()
+                                                                .pickImage(
+                                                                    source: ImageSource
+                                                                        .gallery);
+                                                        print(image!.path);
+
+                                                        if (image == null)
+                                                          return;
+                                                        final imageTemporary =
+                                                            File(image.path);
+                                                        imagePath = image.path;
+                                                        mystate(() =>
+                                                            this.image =
+                                                                imageTemporary);
+                                                      } on PlatformException catch (e) {
+                                                        print('Fail');
+                                                      }
+                                                    },
+                                                    // =>
+                                                    //   pickImage(
+                                                    //       ImageSource.gallery),
+
                                                     child: Container(
                                                       height: 50,
                                                       padding:
@@ -131,7 +194,7 @@ class _UserDetailState extends State<UserDetail> {
                                                                 Colors.white),
                                                         SizedBox(width: 10),
                                                         Text(
-                                                          'Chọn file',
+                                                          'Chọn ảnh',
                                                           style: GoogleFonts
                                                               .raleway(
                                                             fontSize: 14,

@@ -1,7 +1,10 @@
+import 'package:app_flutter_thientin/src/error/index.dart';
+import 'package:app_flutter_thientin/src/home/index.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/login/screens/index_page/index.dart';
 import 'package:app_flutter_thientin/src/splash/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Login extends StatefulWidget {
@@ -20,15 +23,28 @@ class _LoginState extends State<Login> {
         return const Splash();
       } else if (state is LoginError) {
         print("Login Error");
-        return const Splash();
+        return ErrorPage(
+          message: state.failure.message,
+        );
       } else if (state is LoginLoaded) {
         print("Login Loaded");
-        return const SizedBox.shrink();
+        Home.push(context: context);
       } else if (state is LoginNav) {
         print("Login Nav");
         return state.page;
       }
       return const IndexLoginPage();
     });
+  }
+
+  static Future<void> push({required BuildContext context}) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const Login()));
+    });
+  }
+
+  static Future<void> pop({required BuildContext context}) async {
+    SystemNavigator.pop();
   }
 }

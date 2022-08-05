@@ -1,8 +1,12 @@
+import 'package:app_flutter_thientin/src/tranfers/screens/tranfer_page/components/amount_money.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../login/models/user_model.dart';
 
 class InfoDetail extends StatelessWidget {
+  InfoDetail({Key? key, required this.phone}) : super(key: key);
+  final String phone;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +26,7 @@ class InfoDetail extends StatelessWidget {
                 height: 5,
               ),
               Text(
-               "0767193042",
+                phone,
                 style: GoogleFonts.roboto(
                   color: Colors.black,
                   fontSize: 14,
@@ -42,7 +46,7 @@ class InfoDetail extends StatelessWidget {
                 height: 5,
               ),
               Text(
-               '100,000.00 VND',
+                  'a',
                 style: GoogleFonts.roboto(
                   color: Colors.black,
                   fontSize: 14,
