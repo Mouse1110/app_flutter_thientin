@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'components/addimage.dart';
-
 class CampaignImagePage extends StatefulWidget {
   const CampaignImagePage({super.key});
 
@@ -29,7 +27,7 @@ class _CampaignImagePageState extends State<CampaignImagePage> {
             color: Colors.grey,
             thickness: 2,
           ),
-          AddImage(),
+          _addImage(),
           SizedBox(height: 16),
           SizedBox(
             height: 50,
@@ -67,6 +65,62 @@ class _CampaignImagePageState extends State<CampaignImagePage> {
           SizedBox(height: 12)
         ]),
       )),
+    );
+  }
+
+  Widget _addImage() {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 6),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          color: Colors.grey.withOpacity(0.25),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Column(
+              //   children: list
+              //       .map((e) => Item(
+              //           image: e,
+              //           press: (str) {
+              //             print(str);
+              //             int index = list.indexWhere(
+              //                 (element) => element.path == str);
+              //             if (index > -1) {
+              //               list.removeAt(index);
+              //               setState(() {});
+              //             }
+              //           }))
+              //       .toList(),
+              // ),
+              SizedBox(height: 16),
+              InkWell(
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.add),
+                      Text(
+                        'Thêm mới',
+                        style: GoogleFonts.raleway(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

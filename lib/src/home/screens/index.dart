@@ -1,28 +1,24 @@
-
-import 'package:app_flutter_thientin/src/home/screens/index.dart';
-import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../models/campaign_model.dart';
 import 'components/campain_new_page.dart';
 import 'components/itemCampain_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  HomePage({Key? key, this.campaign, this.listCampaign}) : super(key: key);
+  CampaignModel? campaign;
+  List<CampaignModel>? listCampaign;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-bool change = true;
-bool is360 = true;
-bool checkButton = true;
-
 class _HomePageState extends State<HomePage> {
+  bool change = true;
+  bool is360 = true;
+  bool checkButton = true;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -30,7 +26,7 @@ class _HomePageState extends State<HomePage> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Align(

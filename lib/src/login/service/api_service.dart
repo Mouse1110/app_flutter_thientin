@@ -9,11 +9,16 @@ class ApiService {
     required String pass,
   }) async {
     try {
-      final Response response = await _dio.post('$baseUrl${params['login']}');
+      final Response response = await _dio.post('$baseUrl${params['login']}',
+          data: {"phone": phone, "pass": pass});
+      print('error request ${response.data}');
       return response;
+    } on DioError catch (e) {
+      print(e.response!.data);
+      throw Exception(e.response!.data["message"]);
     } catch (e) {
       print('error request :$e');
-      return null;
+      throw Exception(e);
     }
   }
 }
