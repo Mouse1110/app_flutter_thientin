@@ -1,17 +1,24 @@
+import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../login/models/user_model.dart';
 import '../models/info.dart';
 import 'components/info_detail.dart';
 import 'components/item_action.dart';
 import 'components/user_detail.dart';
 
 class ProfilePage extends StatefulWidget {
+  ProfilePage({Key? key}) : super(key: key);
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  User? user;
+
   @override
   void initState() {
     super.initState();
@@ -55,7 +62,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   static const colortheme = Color.fromRGBO(245, 245, 245, 1);
   List<InfoItem> list_info_item = [];
+
   Widget build(BuildContext context) {
+    user = context.read<LoginCubit>().user;
     return Scaffold(
         backgroundColor: colortheme,
         body: SafeArea(
@@ -67,7 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 4,
                 ),
-                InfoDetail(),
+                InfoDetail(
+                  phone: user!.data.phone,
+                ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
