@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onRefresh: () async {},
             child: Column(
               children: [
-                UserDetail(name: user!.data.name,),
+                UserDetail(),
                 const SizedBox(
                   height: 4,
                 ),
