@@ -19,10 +19,7 @@ class Home extends StatelessWidget {
         print("Login Loading");
         return const Splash();
       } else if (state is HomeError) {
-        print("Login Error");
-        return ErrorPage(
-          message: state.failure.message,
-        );
+        ErrorPage.push(context: context, error: state.failure.message);
       } else if (state is HomeLoaded) {
         print("Login Loaded:${state.campaign.idCaimpain}");
         return HomePage(

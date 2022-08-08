@@ -23,9 +23,7 @@ class _LoginState extends State<Login> {
         return const Splash();
       } else if (state is LoginError) {
         print("Login Error");
-        return ErrorPage(
-          message: state.failure.message,
-        );
+        ErrorPage.push(context: context, error: state.failure.message);
       } else if (state is LoginLoaded) {
         print("Login Loaded");
         Home.push(context: context);

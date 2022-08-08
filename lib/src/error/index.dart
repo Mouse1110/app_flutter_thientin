@@ -10,6 +10,7 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('dsad');
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -44,7 +45,9 @@ class ErrorPage extends StatelessWidget {
                   height: 10,
                 ),
                 ButtonArrow(
-                  press: () {},
+                  press: () {
+                    pop(context: context);
+                  },
                 ),
               ],
             )
@@ -52,5 +55,23 @@ class ErrorPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static Future<void> push(
+      {required BuildContext context, String error = "Có lỗi xảy ra"}) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (_) => ErrorPage(
+                    message: error,
+                  )));
+    });
+  }
+
+  static Future<void> pop({required BuildContext context}) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pop(context);
+    });
   }
 }
