@@ -1,6 +1,7 @@
 import 'package:app_flutter_thientin/src/error/index.dart';
 import 'package:app_flutter_thientin/src/home/cubit/home_cubit.dart';
 import 'package:app_flutter_thientin/src/home/screens/index.dart';
+import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/splash/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +13,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<HomeCubit>().fetchCampaignApi(
-        accessToken:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNzQzYTA3ZTg5ZGNiMzM5OWVmYzMxOTZmZWRlZDhlYzkiLCJpYXQiOjE2NTk2MzA0MDcsImV4cCI6MTY1OTcxNjgwN30.unmIeeHbDMoSD0m6FpnCSRTfsAul479kcpgsD7yl5JU');
+        accessToken: context.read<LoginCubit>().user!.accessToken);
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
       if (state is HomeLoading) {
         print("Login Loading");
