@@ -1,230 +1,180 @@
+import 'package:app_flutter_thientin/src/home/constants/color_constant.dart';
+import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-  
+import 'package:lottie/lottie.dart';
+
+import '../../constants/api_constant.dart';
 
 class ItemCampain extends StatelessWidget {
-  ItemCampain({
+  final CampaignModel data;
+  const ItemCampain({
     Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return InkWell(
         onTap: () {},
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(
-                    'https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645-t.jpg',
-                    height: MediaQuery.of(context).size.height / 3,
-                    width: MediaQuery.of(context).size.width / 2,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, child, error) => Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.grey),
-                      height: 300,
-                      width: double.infinity,
+              Image.network(
+                '$baseUrlImage${data.image}',
+                height: 250,
+                width: 150,
+                fit: BoxFit.cover,
+                errorBuilder: (context, child, error) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    gradient: const RadialGradient(
+                      radius: 1,
+                      colors: [
+                        Colors.white,
+                        Color.fromRGBO(109, 213, 250, 1),
+                      ],
                     ),
+                  ),
+                  child: Lottie.network(
+                    "https://assets6.lottiefiles.com/packages/lf20_zi361grc.json",
+                    height: 250,
+                    width: 150,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 3,
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: Stack(
+                child: SizedBox(
+                  height: 250,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 35),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                          height: 48,
-                                          width: 48,
-                                          child: ClipOval(
-                                            child: Image.network(
-                                              // '${urlImage}${data.avatar}.png',
-                                              'https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png',
-                                              errorBuilder: (context, error,
-                                                      stackTrace) =>
-                                                  Image.network(
-                                                      "assets/user.png"),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text('bÙI XUÂN CẢNH 3 ',
-                                                style: GoogleFonts.raleway(
-                                                    fontSize:
-                                                        MediaQuery.of(context)
-                                                                    .size
-                                                                    .width >
-                                                                355
-                                                            ? 14
-                                                            : 11,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color.fromRGBO(
-                                                            35, 45, 94, 1)
-                                                        .withOpacity(0.5))),
-                                            Text('20/12/2022'),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Text(
-                                      'bui xuan canh 4',
-                                      style: GoogleFonts.raleway(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromRGBO(35, 45, 94, 1)),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Text(
-                                      'Hiện có 5 người ủng hộ chiến dịch này',
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 10,
-                                        color: Colors.black.withOpacity(0.5),
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Đạt được: ',
-                                          style: GoogleFonts.raleway(
-                                              color:
-                                                  Color.fromRGBO(35, 45, 94, 1),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          ' 2222 VNĐ',
-
-                                          //'${data.info.total} VND',
-                                          style: GoogleFonts.roboto(
-                                              color: Colors.red,
-                                              fontSize: MediaQuery.of(context)
-                                                          .size
-                                                          .width >
-                                                      355
-                                                  ? 12
-                                                  : 10,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Image.network(
-                                            'http://store-images.s-microsoft.com/image/apps.9248.13782831719857255.28521e9e-6061-477d-a61c-0d635828fa49.94b424cc-bfed-4d01-a37d-db8287d72586',
-                                            height: 12,
-                                            width: 12),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          '200.00',
-                                          style: GoogleFonts.raleway(
-                                              color:
-                                                  Color.fromRGBO(35, 45, 94, 1),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
+                      Row(
+                        children: [
+                          Image.network('$baseUrlImage${data.user.avatar}',
+                              width: 48,
+                              height: 48,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                    Icons.account_circle,
+                                    size: 48,
+                                  )),
+                          const SizedBox(
+                            width: 20,
                           ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: 35,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(14, 152, 210, 1),
-                                  borderRadius: BorderRadius.circular(4)),
-                              child: Center(
-                                child: Text(
-                                  'Ủng hộ',
-                                  style: GoogleFonts.raleway(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(data.user.name,
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color.fromRGBO(
+                                            35, 45, 94, 1))),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                            )),
+                                Text(data.user.phone,
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data.info.name,
+                            style: GoogleFonts.roboto(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: const Color.fromRGBO(35, 45, 94, 1)),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Hiện có ${data.listUserDonate.length} người ủng hộ chiến dịch này',
+                            style: GoogleFonts.roboto(
+                              fontSize: 10,
+                              color: Colors.black.withOpacity(0.5),
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Đạt được: ',
+                            style: GoogleFonts.roboto(
+                                color: const Color.fromRGBO(35, 45, 94, 1),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            '${data.info.total} VNĐ',
+                            //'${data.info.total} VND',
+                            style: GoogleFonts.roboto(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Icon(
+                            Icons.paid,
+                            size: 16,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            !data.info.isDisbur
+                                ? 'Chưa giải ngân'
+                                : 'Đã giải ngân',
+                            style: GoogleFonts.roboto(
+                                color: const Color.fromRGBO(35, 45, 94, 1),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400),
+                          )
+                        ],
+                      ),
+                      InkWell(
+                          onTap: () {},
+                          child: Container(
+                            height: 35,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                                color: backgroundButton,
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Center(
+                              child: Text(
+                                'Xem thêm',
+                                style: GoogleFonts.roboto(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          )),
                     ],
                   ),
                 ),

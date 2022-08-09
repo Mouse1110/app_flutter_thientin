@@ -10,6 +10,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
+  static Future<void> push({required BuildContext context}) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const Login()));
+    });
+  }
+
+  static Future<void> pop({required BuildContext context}) async {
+    SystemNavigator.pop();
+  }
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -24,25 +35,16 @@ class _LoginState extends State<Login> {
       } else if (state is LoginError) {
         print("Login Error");
         ErrorPage.push(context: context, error: state.failure.message);
+        return const SizedBox.shrink();
       } else if (state is LoginLoaded) {
         print("Login Loaded");
         Home.push(context: context);
+        return const SizedBox.shrink();
       } else if (state is LoginNav) {
         print("Login Nav");
         return state.page;
       }
       return const IndexLoginPage();
     });
-  }
-
-  static Future<void> push({required BuildContext context}) async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const Login()));
-    });
-  }
-
-  static Future<void> pop({required BuildContext context}) async {
-    SystemNavigator.pop();
   }
 }

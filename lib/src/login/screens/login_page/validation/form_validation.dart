@@ -38,7 +38,7 @@ class FormValidation {
         int.parse(data);
         sink.add(data);
       } catch (e) {
-        sink.addError("Số điện thoại không hợp lệ");
+        sink.addError("Mật khẩu phải trên 4 kí tự");
       }
     }
   }));

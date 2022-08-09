@@ -24,12 +24,12 @@ class Splash extends StatelessWidget {
             Lottie.network(
                 'https://assets6.lottiefiles.com/private_files/lf30_fup2uejx.json'),
             Text(
-              'Vì hệ thống tương tác với blockchain nên sẽ chậm hơn bình thường.\nMong bạn thông cảm!',
+              'Kết nối nền tảng lưu trữ toàn cầu.\nMong bạn chờ trong giây lát!',
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
-                  color: Colors.black.withOpacity(0.5),
+                  color: Colors.black,
                   fontSize: 12,
-                  fontWeight: FontWeight.w300),
+                  fontWeight: FontWeight.w500),
             ),
           ],
         ),
