@@ -1,16 +1,20 @@
+import 'package:app_flutter_thientin/src/campaign/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../models/campaign_model.dart';
   
 
 class ItemCampain extends StatelessWidget {
   ItemCampain({
-    Key? key,
-  }) : super(key: key);
-
+    Key? key,required this.listCampaign,required this.campaign}) : super(key: key);
+final   List<CampaignModel> listCampaign;
+  final CampaignModel campaign;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return InkWell(
+    return Column(
+      children: listCampaign.map((e) => InkWell(
         onTap: () {},
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -78,7 +82,7 @@ class ItemCampain extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text('bÙI XUÂN CẢNH 3 ',
+                                            Text(listCampaign[listCampaign.length].user.name,
                                                 style: GoogleFonts.raleway(
                                                     fontSize:
                                                         MediaQuery.of(context)
@@ -231,6 +235,7 @@ class ItemCampain extends StatelessWidget {
               )
             ],
           ),
-        ));
+        ))).toList(),
+    );
   }
 }

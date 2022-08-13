@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../profile/screens/index.dart';
 import '../models/campaign_model.dart';
 import 'components/campain_new_page.dart';
 import 'components/itemCampain_page.dart';
@@ -37,7 +39,9 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.w700,
                             color: Color.fromRGBO(35, 45, 94, 1))),
                   ),
-                  ItemCampainnew(),
+                  ItemCampainnew(
+                    campaign: widget.campaign!,
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -151,7 +155,13 @@ class _HomePageState extends State<HomePage> {
                               fontSize: is360 ? 20 : 16,
                               fontWeight: FontWeight.w800)),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()),
+                          );
+                        },
                         child: Row(children: [
                           Text(
                             //  totalWallet,
@@ -222,7 +232,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         SizedBox(height: 20),
-        ItemCampain(),
+        ItemCampain(listCampaign: [], campaign: widget.campaign!),
       ],
     );
   }
@@ -233,7 +243,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         SizedBox(height: 20),
-        ItemCampain(),
+        ItemCampain(listCampaign: [],campaign: widget.campaign!,),
       ],
     );
   }

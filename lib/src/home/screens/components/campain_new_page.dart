@@ -1,14 +1,14 @@
+import 'package:app_flutter_thientin/src/home/constants/api_constant.dart';
+import 'package:app_flutter_thientin/src/home/index.dart';
+import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ItemCampainnew extends StatelessWidget {
+  ItemCampainnew({Key? key, required this.campaign,}) : super(key: key);
+  final CampaignModel campaign;
  
-
-  ItemCampainnew({
-   
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -47,7 +47,7 @@ class ItemCampainnew extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text('Bùi xuân cảnh',
+                            Text(campaign.user.name,
                                 style: GoogleFonts.raleway(
                                     fontSize:
                                         MediaQuery.of(context).size.width > 355
@@ -56,7 +56,25 @@ class ItemCampainnew extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromRGBO(35, 45, 94, 1)
                                         .withOpacity(0.5))),
-                            Text('20/12/2022'),
+                            Text(
+                              DateTime.now()
+                                              .difference(DateTime
+                                                  .fromMillisecondsSinceEpoch(
+                                                      campaign.info.regStart *
+                                                          1000))
+                                              .inDays +
+                                          1 ==
+                                      0
+                                  ? "Hôm nay"
+                                  : '${DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(campaign.info.regStart * 1000)).inDays} ngày trước',
+                           style: GoogleFonts.raleway(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width > 355
+                                            ? 14
+                                            : 11,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black.withOpacity(0.3))
+                            ),
                           ],
                         ),
                       ),
@@ -70,7 +88,7 @@ class ItemCampainnew extends StatelessWidget {
             height: 5,
           ),
           Image.network(
-            'https://vcdn-dulich.vnecdn.net/2021/12/24/An-Giang-0-jpeg-1470-1640315739.jpg',
+           urlImage+campaign.image,
             height: 300,
             width: double.infinity,
             fit: BoxFit.contain,
@@ -101,7 +119,7 @@ class ItemCampainnew extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bùi XUÂN CẢNH 2',
+                        campaign.info.name,
                         style: GoogleFonts.raleway(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -128,7 +146,7 @@ class ItemCampainnew extends StatelessWidget {
                                 height: 4,
                               ),
                               Text(
-                                ' 200.000VNĐ',
+                                campaign.info.total+" VND",
                                 //'${data.info.total} VND',
                                 style: GoogleFonts.roboto(
                                     color: Colors.red,
@@ -142,7 +160,7 @@ class ItemCampainnew extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                'Hiện có 5 người ủng hộ chiến dịch này',
+                                'Hiện có ${campaign.countDonate} người ủng hộ chiến dịch này',
                                 style: GoogleFonts.roboto(
                                   fontSize: 10,
                                   color: Colors.black.withOpacity(0.5),
@@ -156,11 +174,21 @@ class ItemCampainnew extends StatelessWidget {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Image.network('http://store-images.s-microsoft.com/image/apps.9248.13782831719857255.28521e9e-6061-477d-a61c-0d635828fa49.94b424cc-bfed-4d01-a37d-db8287d72586',
-                                      height: 12, width: 12),
+                                  Image.network(
+                                      'http://store-images.s-microsoft.com/image/apps.9248.13782831719857255.28521e9e-6061-477d-a61c-0d635828fa49.94b424cc-bfed-4d01-a37d-db8287d72586',
+                                      height: 12,
+                                      width: 12),
                                   SizedBox(width: 5),
                                   Text(
-                                    '20/2/2022',
+                                     DateTime.fromMillisecondsSinceEpoch(
+                                                        campaign.info.disburStart *
+                                                            1000)
+                                                    .difference(DateTime.now())
+                                                    .inDays +
+                                                1 >
+                                            0
+                                        ? 'Còn lại ${DateTime.fromMillisecondsSinceEpoch(campaign.info.disburStart * 1000).difference(DateTime.now()).inDays + 1} ngày'
+                                        : 'Đã kết thúc',
                                     style: GoogleFonts.raleway(
                                         color: Color.fromRGBO(35, 45, 94, 1),
                                         fontSize: 10,
@@ -172,9 +200,7 @@ class ItemCampainnew extends StatelessWidget {
                                 height: 10,
                               ),
                               InkWell(
-                                onTap: () {
-                               
-                                },
+                                onTap: () {},
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
