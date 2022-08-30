@@ -3,6 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../constants/color_contants.dart';
+
 class TitleComponent extends StatelessWidget {
   const TitleComponent({Key? key}) : super(key: key);
 
@@ -45,9 +47,7 @@ class TitleComponent extends StatelessWidget {
       Text(
         'Thông tin từ thiện',
         style: GoogleFonts.raleway(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Color.fromRGBO(35, 45, 94, 0.75)),
+            fontSize: 18, fontWeight: FontWeight.w700, color: colorTran),
       ),
       SizedBox(height: 8),
       Text(

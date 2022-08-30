@@ -3,6 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../constants/color_contants.dart';
+
 class InfoTransactionBlockChain extends StatelessWidget {
   const InfoTransactionBlockChain({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class InfoTransactionBlockChain extends StatelessWidget {
               Text(
                 'Tổng quát',
                 style: GoogleFonts.raleway(
-                  color: Color.fromRGBO(35, 45, 94, 1),
+                  color: colorTran,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
@@ -42,7 +44,7 @@ class InfoTransactionBlockChain extends StatelessWidget {
               Text(
                 '[ Đây là thông tin mà hệ thống ghi nhận lại, mọi người có thể kiểm tra lại bằng mã hash trên mạng Polygon ]',
                 style: GoogleFonts.raleway(
-                  color: Colors.red,
+                  color: colorTextMoney,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
@@ -101,7 +103,7 @@ class InfoTransactionBlockChain extends StatelessWidget {
                     child: Text(
                       'Hoàn thành',
                       style: GoogleFonts.raleway(
-                        color: Color.fromRGBO(0, 201, 167, 1),
+                        color: colorSuccess,
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                       ),
@@ -236,7 +238,7 @@ class InfoTransactionBlockChain extends StatelessWidget {
                           //     // ? '${_money!.writedMoney('${data!.value}')} VNĐ'
                           //     : '',
                           style: GoogleFonts.raleway(
-                            color: Color.fromRGBO(0, 201, 167, 1),
+                            color: colorSuccess,
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
                           ),
@@ -271,7 +273,7 @@ class InputTitle extends StatelessWidget {
         Text(
           title,
           style: GoogleFonts.raleway(
-            color: Color.fromRGBO(35, 45, 94, 1),
+            color: colorTran,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),

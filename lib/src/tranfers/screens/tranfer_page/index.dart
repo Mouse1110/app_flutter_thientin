@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'components/amount_money.dart';
-import 'components/buttom_output_input.dart';
+import 'components/button_tranfer.dart/buttom_output_input.dart';
 import 'components/button_arrow_back.dart';
 import 'components/receiver_list.dart';
 import 'components/textform_search.dart';

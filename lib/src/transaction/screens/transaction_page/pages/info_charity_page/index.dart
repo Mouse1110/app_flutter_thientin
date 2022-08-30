@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+import '../../../../constants/color_contants.dart';
 import 'components/info_charity_list.dart';
 
 class InfoCharity extends StatefulWidget {
@@ -56,7 +57,7 @@ class _InfoCharityState extends State<InfoCharity> {
                           style: GoogleFonts.raleway(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
-                              color: Color.fromRGBO(35, 45, 94, 1)),
+                              color: colorTran),
                         ),
                       ),
                     ),

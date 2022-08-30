@@ -1,3 +1,4 @@
+import 'package:app_flutter_thientin/src/tranfers/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -21,7 +22,7 @@ class AmountMoney extends StatelessWidget {
             style: GoogleFonts.readexPro(
                 fontSize: 28,
                 fontWeight: FontWeight.w700,
-                color: Color.fromRGBO(35, 45, 94, 1))),
+                color: colorTranfers)),
         SizedBox(height: 30),
       ],
     );

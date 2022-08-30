@@ -3,6 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../constants/color_contants.dart';
+
 class InfoCharityList extends StatelessWidget {
   const InfoCharityList({Key? key}) : super(key: key);
 
@@ -35,7 +37,7 @@ class InfoCharityList extends StatelessWidget {
                               style: GoogleFonts.raleway(
                                 fontSize: 8,
                                 fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(35, 45, 94, 1),
+                                color: colorTran,
                               ))),
                     ),
                     Container(
@@ -49,13 +51,12 @@ class InfoCharityList extends StatelessWidget {
                               style: GoogleFonts.raleway(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
-                                  color: Color.fromRGBO(35, 45, 94, 1))),
+                                  color: colorTran)),
                           Text('Giao dịch ủng hộ của nhà từ thiện',
                               style: GoogleFonts.raleway(
                                   fontSize: 8,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(35, 45, 94, 1)
-                                      .withOpacity(0.5))),
+                                  color: colorTran.withOpacity(0.5))),
                         ],
                       ),
                     )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../constants/color_contants.dart';
 import 'components/info_transaction_blockchain.dart';
 import 'components/title.dart';
 
@@ -26,7 +27,7 @@ class InfoTransaction extends StatelessWidget {
                       style: GoogleFonts.raleway(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: Color.fromRGBO(35, 45, 94, 1)),
+                          color: colorTran),
                     ),
                     SizedBox(height: 20),
                     InfoTransactionBlockChain(),

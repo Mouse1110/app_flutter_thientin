@@ -1,3 +1,4 @@
+import 'package:app_flutter_thientin/src/tranfers/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,9 +13,7 @@ class ReceiverList extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Text('Danh sách người nhận',
           style: GoogleFonts.bitter(
-              color: Color.fromRGBO(35, 45, 94, 1),
-              fontSize: 16,
-              fontWeight: FontWeight.w700)),
+              color: colorTranfers, fontSize: 16, fontWeight: FontWeight.w700)),
     );
   }
 }
