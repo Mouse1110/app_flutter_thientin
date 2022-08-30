@@ -17,8 +17,7 @@ class InfoCharityList extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                  width: 0.5, color: Color.fromRGBO(14, 152, 210, 1))),
+              border: Border.all(width: 0.5, color: colorTitle)),
           child: Row(
             children: [
               Expanded(

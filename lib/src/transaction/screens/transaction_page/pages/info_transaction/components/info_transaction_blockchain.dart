@@ -206,7 +206,7 @@ class InfoTransactionBlockChain extends StatelessWidget {
                         //     ? 'Ngày ${DateTime.fromMillisecondsSinceEpoch(data!.date * 1000).day}, Tháng ${DateTime.fromMillisecondsSinceEpoch(data!.date * 1000).month}, Năm ${DateTime.fromMillisecondsSinceEpoch(data!.date * 1000).year}'
                         //     : '',
                         style: GoogleFonts.raleway(
-                          color: Color.fromRGBO(14, 152, 210, 1),
+                          color: colorTitle,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),

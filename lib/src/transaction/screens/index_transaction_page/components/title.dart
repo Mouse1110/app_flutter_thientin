@@ -1,3 +1,4 @@
+import 'package:app_flutter_thientin/src/transaction/constants/color_contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -37,9 +38,7 @@ class TitleComponent extends StatelessWidget {
             Text(
               'MINH CHỨNG',
               style: GoogleFonts.raleway(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
-                  color: Color.fromRGBO(14, 152, 210, 1)),
+                  fontSize: 16, fontWeight: FontWeight.w900, color: colorTitle),
             ),
             TextButton(
                 onPressed: () {
@@ -57,17 +56,13 @@ class TitleComponent extends StatelessWidget {
       Text(
         'Danh sách người tham gia vào hệ thống',
         style: GoogleFonts.raleway(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Color.fromRGBO(35, 45, 94, 1)),
+            fontSize: 18, fontWeight: FontWeight.w700, color: colorTran),
       ),
       SizedBox(height: 8),
       Text(
         'Thông tin người đóng góp đã tham gia vào chiến dịch',
         style: GoogleFonts.raleway(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey.withOpacity(0.75)),
+            fontSize: 14, fontWeight: FontWeight.w400, color: colorSubtitle),
       ),
     ]);
   }

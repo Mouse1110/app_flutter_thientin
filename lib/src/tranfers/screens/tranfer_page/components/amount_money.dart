@@ -22,7 +22,7 @@ class AmountMoney extends StatelessWidget {
             style: GoogleFonts.readexPro(
                 fontSize: 28,
                 fontWeight: FontWeight.w700,
-                color: colorTranfers)),
+                color: colorTranfer)),
         SizedBox(height: 30),
       ],
     );

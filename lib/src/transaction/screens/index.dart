@@ -1,3 +1,4 @@
+import 'package:app_flutter_thientin/src/transaction/constants/color_contants.dart';
 import 'package:app_flutter_thientin/src/transaction/screens/index_transaction_page/components/contributor_page.dart';
 import 'package:app_flutter_thientin/src/transaction/screens/index_transaction_page/components/receiver_page.dart';
 import 'package:app_flutter_thientin/src/transaction/screens/index_transaction_page/components/title.dart';
@@ -20,11 +21,11 @@ class TransactionPage extends StatelessWidget {
               tabs: const [
                 Text(
                   'Người nhận',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: colorTextMoney),
                 ),
                 Text(
                   'Người ủng hộ',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: colorTextMoney),
                 ),
               ],
               views: const [

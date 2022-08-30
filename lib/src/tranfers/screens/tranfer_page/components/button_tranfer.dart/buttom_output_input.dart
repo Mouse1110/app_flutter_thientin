@@ -15,15 +15,15 @@ class InputOutputButtom extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _button(() {}, 'Nạp thêm', colorButton),
+          _Button(() {}, 'Nạp thêm', colorButton),
           SizedBox(width: 30),
-          _button(() {}, 'Rút ra', colorButton),
+          _Button(() {}, 'Rút ra', colorButton),
         ],
       ),
     );
   }
 
-  Widget _button(Function press, String text, Color color) => Expanded(
+  Widget _Button(Function press, String text, Color color) => Expanded(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
           height: 50,

@@ -18,7 +18,7 @@ class ButtomArrowBack extends StatelessWidget {
               style: GoogleFonts.raleway(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
-                  color: colorTranfers)),
+                  color: colorTranfer)),
           Image.asset('assets/user.png', width: 42)
         ],
       ),

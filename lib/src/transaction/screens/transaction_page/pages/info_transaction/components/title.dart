@@ -1,3 +1,4 @@
+import 'package:app_flutter_thientin/src/transaction/constants/color_contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -34,8 +35,7 @@ class TitleComponentTransaction extends StatelessWidget {
               ),
               Text(
                 'THIỆN TÍN',
-                style: GoogleFonts.bitter(
-                    fontSize: 22, color: Color.fromRGBO(14, 152, 210, 1)),
+                style: GoogleFonts.bitter(fontSize: 22, color: colorTitle),
               ),
               Container(
                 height: 36,

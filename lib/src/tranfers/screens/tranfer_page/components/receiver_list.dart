@@ -13,7 +13,7 @@ class ReceiverList extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Text('Danh sách người nhận',
           style: GoogleFonts.bitter(
-              color: colorTranfers, fontSize: 16, fontWeight: FontWeight.w700)),
+              color: colorTranfer, fontSize: 16, fontWeight: FontWeight.w700)),
     );
   }
 }

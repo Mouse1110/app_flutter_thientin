@@ -1,3 +1,4 @@
+import 'package:app_flutter_thientin/src/transaction/constants/color_contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -42,7 +43,7 @@ class ReceiverPage extends StatelessWidget {
                                 style: GoogleFonts.roboto(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
-                                    color: Color.fromRGBO(35, 45, 94, 1))),
+                                    color: colorTran)),
                           ),
                           Text(' nhận ',
                               style: GoogleFonts.raleway(
@@ -53,15 +54,14 @@ class ReceiverPage extends StatelessWidget {
                               style: GoogleFonts.raleway(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.red)),
+                                  color: colorTextMoney)),
                         ],
                       ),
                       Text('0789429140',
                           style: GoogleFonts.roboto(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
-                              color: Color.fromRGBO(35, 45, 94, 1)
-                                  .withOpacity(0.5))),
+                              color: colorTran.withOpacity(0.5))),
                     ],
                   ),
                 )

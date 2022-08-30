@@ -34,9 +34,7 @@ class _InfoCharityState extends State<InfoCharity> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(
-                          width: 0.5,
-                          color: Color.fromRGBO(14, 152, 210, 1)
-                              .withOpacity(0.5))),
+                          width: 0.5, color: colorTitle.withOpacity(0.5))),
                   // child: charts.BarChart(
                   //   series,
                   //   animate: true,

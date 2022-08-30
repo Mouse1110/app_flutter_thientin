@@ -33,8 +33,7 @@ class TitleComponent extends StatelessWidget {
             ),
             Text(
               'THIỆN TÍN',
-              style: GoogleFonts.bitter(
-                  fontSize: 22, color: Color.fromRGBO(14, 152, 210, 1)),
+              style: GoogleFonts.bitter(fontSize: 22, color: colorTitle),
             ),
             Container(
               height: 36,
@@ -53,9 +52,7 @@ class TitleComponent extends StatelessWidget {
       Text(
         'Hiển thị thông tin qua từng ngày của quỹ đóng góp',
         style: GoogleFonts.raleway(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey.withOpacity(0.75)),
+            fontSize: 14, fontWeight: FontWeight.w400, color: colorSubtitle),
       ),
     ]);
   }
