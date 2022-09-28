@@ -11,12 +11,20 @@ class HomeInitial extends HomeState {}
 
 class HomeLoading extends HomeState {}
 
-class HomeLoaded extends HomeState {
-  const HomeLoaded({required this.campaign});
+class HomeLoadedCampaign extends HomeState {
+  const HomeLoadedCampaign({required this.campaign});
   final CampaignModel campaign;
 
   @override
   List<Object> get props => [campaign];
+}
+
+class HomeLoadedListCampaign extends HomeState {
+  const HomeLoadedListCampaign({required this.listCampaign});
+  final List<CampaignModel> listCampaign;
+
+  @override
+  List<Object> get props => [listCampaign];
 }
 
 class HomeError extends HomeState {

@@ -1,43 +1,48 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
-class timeline extends StatefulWidget {
-  const timeline({Key? key}) : super(key: key);
-
+class TimeLine extends StatefulWidget {
+  const TimeLine({
+    Key? key,
+    required this.ticks,
+    required this.date,
+    required this.timeLine,
+  }) : super(key: key);
+  final int ticks;
+  final String date;
+  final List<String> timeLine;
   @override
-  State<timeline> createState() => _timelineState();
+  State<TimeLine> createState() => _TimeLineState();
 }
 
-class _timelineState extends State<timeline> {
+class _TimeLineState extends State<TimeLine> {
   Widget tick(bool isChecked) {
     return isChecked
-        ? Icon(
+        ? const Icon(
             Icons.check_circle,
             color: Colors.blue,
           )
-        : Icon(
+        : const Icon(
             Icons.radio_button_unchecked,
             color: Colors.blue,
           );
   }
-  int ticks = 0;
+
   Widget tick1() {
-    return ticks > 0 ? tick(true) : tick(false);
+    return widget.ticks > 0 ? tick(true) : tick(false);
   }
 
   Widget tick2() {
-    return ticks > 1 ? tick(true) : tick(false);
+    return widget.ticks > 1 ? tick(true) : tick(false);
   }
 
   Widget tick3() {
-    return ticks > 2 ? tick(true) : tick(false);
+    return widget.ticks > 2 ? tick(true) : tick(false);
   }
 
   Widget tick4() {
-    return ticks > 3 ? tick(true) : tick(false);
+    return widget.ticks > 3 ? tick(true) : tick(false);
   }
 
   Widget line() {
@@ -50,10 +55,9 @@ class _timelineState extends State<timeline> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
-children: [
-   Align(
+      children: [
+        Align(
           alignment: Alignment.centerLeft,
           child: Text('Thời gian hoạt động',
               style: GoogleFonts.inter(
@@ -61,10 +65,10 @@ children: [
                   color: Colors.black,
                   fontWeight: FontWeight.w400)),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Container(
+        SizedBox(
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
@@ -72,43 +76,46 @@ children: [
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TimeCampaign(text: 'Chiến dịch', date: 'Ngày'),
-                            TimeCampaign(text: 'Ủng hộ', date: ' Ngày'),
-                            TimeCampaign(text: 'Kiểm duyệt', date: 'Ngày'),
-                            TimeCampaign(text: 'Giải ngân', date: 'Ngày'),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            tick1(),
-                            line(),
-                            tick2(),
-                            line(),
-                            tick3(),
-                            line(),
-                            tick4(),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TimeCampaign(
+                              text: 'Chiến dịch', date: widget.timeLine[0]),
+                          TimeCampaign(
+                              text: 'Ủng hộ', date: widget.timeLine[1]),
+                          TimeCampaign(
+                              text: 'Kiểm duyệt', date: widget.timeLine[2]),
+                          TimeCampaign(
+                              text: 'Giải ngân', date: widget.timeLine[3]),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          tick1(),
+                          line(),
+                          tick2(),
+                          line(),
+                          tick3(),
+                          line(),
+                          tick4(),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 100,
                   child: Text(
-                    'data ngày',
+                    widget.date,
                     textAlign: TextAlign.end,
-                    style: GoogleFonts.raleway(
+                    style: TextStyle(
                         fontSize: 14,
-                        color: Color.fromRGBO(35, 45, 94, 1).withOpacity(0.5)),
+                        color: const Color.fromRGBO(35, 45, 94, 1)
+                            .withOpacity(0.5)),
                   ),
                 ),
               ],
@@ -118,10 +125,11 @@ children: [
         SizedBox(
           height: 10,
         ),
-],
+      ],
     );
   }
 }
+
 class TimeCampaign extends StatelessWidget {
   final String text;
   final String date;

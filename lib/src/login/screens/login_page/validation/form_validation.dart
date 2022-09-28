@@ -58,6 +58,6 @@ class FormValidation {
   callSubmit({required BuildContext context}) {
     context
         .read<LoginCubit>()
-        .fetchLoginApi(phone: _formPhone.value, pass: _formPass.value);
+        .fetchLoginApi(context, phone: _formPhone.value, pass: _formPass.value);
   }
 }

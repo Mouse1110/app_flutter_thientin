@@ -1,240 +1,305 @@
+import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
-import '../models/campaign_model.dart';
+import '../constants/color_constant.dart';
+import 'components/button_event.dart';
 import 'components/campain_new_page.dart';
+import 'components/float_button.dart';
 import 'components/itemCampain_page.dart';
+import 'components/title_another.dart';
+import 'components/title_header.dart';
+import 'validations/data_validation.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key, this.campaign, this.listCampaign}) : super(key: key);
-  CampaignModel? campaign;
-  List<CampaignModel>? listCampaign;
+  final DataValidation validation;
+  const HomePage({Key? key, required this.validation}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  bool change = true;
-  bool is360 = true;
-  bool checkButton = true;
+  Widget _header() => StreamBuilder<Object>(
+      stream: widget.validation.streamCampaign,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Column(
+            children: [
+              const TitleHeader(),
+              SizedBox(
+                height: 100,
+                child: Center(
+                  child: Text(
+                    '${snapshot.error}',
+                    style:
+                        GoogleFonts.roboto(fontSize: 14, color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+        if (snapshot.hasData) {
+          return Column(
+            children: [
+              const TitleHeader(),
+              CampaignOutStanding(
+                  data: snapshot.data as CampaignModel,
+                  onClick: () {
+                    Navigator.of(context)
+                        .pushNamed('/campaign', arguments: snapshot.data);
+                  }),
+            ],
+          );
+        }
+        return const ShimmerHeader();
+      });
+
+  Widget _still() => StreamBuilder<Object>(
+      stream: widget.validation.streamListCampaign,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: (snapshot.data as List).length,
+              itemBuilder: ((context, index) => Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      ItemCampain(
+                        data: (snapshot.data as List)[index],
+                        onClick: () {
+                          Navigator.of(context).pushNamed('/campaign',
+                              arguments: (snapshot.data as List)[index]);
+                        },
+                      ),
+                      const Divider(
+                        color: fontColor,
+                      ),
+                    ],
+                  )));
+        }
+        return const ShimmerBody();
+      });
+
+  Widget _eventCampaign() => StreamBuilder<Object>(
+      stream: widget.validation.streamStatusCampaigns,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Column(
+            children: [
+              const TitlteAnother(),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    ButtonEvent(
+                      text: 'Đang hoạt động',
+                      press: () {
+                        widget.validation.statusCampaigns(true);
+                      },
+                      init: snapshot.data as bool,
+                    ),
+                    const SizedBox(width: 20),
+                    ButtonEvent(
+                      text: 'Đã kết thúc',
+                      press: () {
+                        widget.validation.statusCampaigns(false);
+                      },
+                      init: !(snapshot.data as bool),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        }
+        return const SizedBox();
+      });
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text('Chiến dịch nổi bật',
-                        style: GoogleFonts.raleway(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Color.fromRGBO(35, 45, 94, 1))),
-                  ),
-                  ItemCampainnew(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      height: 2,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Chiến dịch khác',
-                          style: GoogleFonts.raleway(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: Color.fromRGBO(35, 45, 94, 1))),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Row(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              _header(),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: fontColor,
+              ),
+              const SizedBox(height: 10),
+              _eventCampaign(),
+              const SizedBox(height: 10),
+              _still(),
+              const SizedBox(height: 60),
+            ],
+          ),
+        ),
+        floatingActionButton: StreamBuilder<Object>(
+            stream: null,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return FloatButton(
+                  press: () {},
+                );
+              }
+              return const SizedBox();
+            }),
+      ),
+    );
+  }
+}
+
+class ShimmerBody extends StatelessWidget {
+  const ShimmerBody({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+        baseColor: Colors.grey.withOpacity(0.3),
+        highlightColor: Colors.white.withOpacity(0.3),
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: 5,
+            itemBuilder: ((context, index) => Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Row(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              change = true;
-                              checkButton = true;
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                  width: 1,
-                                  color: Color.fromRGBO(14, 152, 210, 1)),
-                              color: checkButton
-                                  ? Color.fromRGBO(14, 152, 210, 1)
-                                  : Colors.white,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Đang hoạt động',
-                                style: GoogleFonts.raleway(
-                                    color: checkButton
-                                        ? Colors.white
-                                        : Color.fromRGBO(14, 152, 210, 1),
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
+                        Container(
+                          height: 250,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
                           ),
                         ),
-                        SizedBox(width: 20),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              change = false;
-                              checkButton = false;
-                            });
-                          },
+                        Expanded(
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                  width: 1,
-                                  color: Color.fromRGBO(14, 152, 210, 1)),
-                              color: checkButton
-                                  ? Colors.white
-                                  : Color.fromRGBO(14, 152, 210, 1),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Đã kết thúc',
-                                style: GoogleFonts.raleway(
-                                    color: checkButton
-                                        ? Color.fromRGBO(14, 152, 210, 1)
-                                        : Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                            padding: const EdgeInsets.all(10.0),
+                            height: 250,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  change ? still() : over(),
-                  SizedBox(height: 60),
-                ],
-              ),
-            ),
-            Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('THIỆN TÍN',
-                          style: GoogleFonts.raleway(
-                              color: Colors.blue,
-                              fontSize: is360 ? 20 : 16,
-                              fontWeight: FontWeight.w800)),
-                      InkWell(
-                        onTap: () {},
-                        child: Row(children: [
-                          Text(
-                            //  totalWallet,
-                            ' 200 VNĐ',
-                            style: GoogleFonts.roboto(
-                              color: Color.fromRGBO(35, 45, 94, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Icon(
-                            Icons.person_rounded,
-                            size: 30,
-                            color: Colors.blue,
-                          ),
-                        ]),
-                      )
-                    ]),
-              ),
-            ),
-            Positioned(
-                right: 0,
-                left: 0,
-                bottom: 0,
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(14, 152, 210, 1),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.calendar_month_outlined,
-                                    color: Colors.white),
-                                SizedBox(width: 20),
-                                Text('Khởi tạo chiến dịch',
-                                    style: GoogleFonts.raleway(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    )),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                    const Divider(
+                      color: fontColor,
                     ),
-                    SizedBox(height: 10),
                   ],
-                ))
-          ],
-        ),
+                ))));
+  }
+}
+
+class ShimmerHeader extends StatelessWidget {
+  const ShimmerHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.withOpacity(0.3),
+      highlightColor: Colors.white.withOpacity(0.3),
+      child: Column(
+        children: [
+          Container(
+            width: 200,
+            height: 14,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            height: 14,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            height: 14,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget still() {
-    return Column(
-      children: [
-        SizedBox(height: 20),
-        ItemCampain(),
-      ],
-    );
-  }
-
-  Widget over() {
-    print('Đã kết thúc');
-
-    return Column(
-      children: [
-        SizedBox(height: 20),
-        ItemCampain(),
-      ],
     );
   }
 }

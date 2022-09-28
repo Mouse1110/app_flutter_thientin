@@ -1,9 +1,10 @@
 import 'package:app_flutter_thientin/src/login/screens/login_page/index.dart';
 import 'package:app_flutter_thientin/src/login/screens/signup_page/index.dart';
-import 'package:app_flutter_thientin/src/utils/color.dart';
+import 'package:app_flutter_thientin/src/login/constants/color_contants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../components/flash_message_component.dart';
 import '../components/title.dart';
 
 class BottomPage extends StatefulWidget {

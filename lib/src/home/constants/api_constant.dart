@@ -1,6 +1,6 @@
-const String baseUrl = 'http://103.110.84.245:5050/v1/';
-
+const String baseUrl = 'https://api-thientin.hmcdat.dev/v1/';
+const String baseUrlImage = 'https://api-thientin.hmcdat.dev/';
 const dynamic params = {
   "outstanding": "caimpain/outstanding",
-  "list":"caimpain",
+  "list": "caimpain",
 };

@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/login/screens/index_page/index.dart';
-import 'package:app_flutter_thientin/src/utils/color.dart';
+import 'package:app_flutter_thientin/src/login/constants/color_contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';

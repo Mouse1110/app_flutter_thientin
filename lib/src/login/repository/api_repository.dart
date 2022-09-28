@@ -3,8 +3,8 @@ import 'package:app_flutter_thientin/src/login/models/user_model.dart';
 import '../service/api_service.dart';
 
 class ApiRepository {
-  const ApiRepository({required this.apiService});
-  final ApiService apiService;
+  ApiRepository();
+  final ApiService apiService = ApiService();
   Future<User?> login({required String phone, required String pass}) async {
     final response = await apiService.postLogin(phone: phone, pass: pass);
     print(response);
