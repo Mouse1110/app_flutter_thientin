@@ -1,5 +1,5 @@
-import 'package:app_flutter_thientin/src/login/screens/login_page/index.dart';
-import 'package:app_flutter_thientin/src/login/screens/signup_page/index.dart';
+import 'package:app_flutter_thientin/src/login/screens/login_page/view.dart';
+import 'package:app_flutter_thientin/src/login/screens/signup_page/view.dart';
 import 'package:app_flutter_thientin/src/login/constants/color_contants.dart';
 import 'package:flutter/material.dart';
 

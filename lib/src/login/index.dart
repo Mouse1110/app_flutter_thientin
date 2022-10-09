@@ -1,6 +1,6 @@
 import 'package:app_flutter_thientin/src/components/flash_message_component.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
-import 'package:app_flutter_thientin/src/login/screens/index_page/index.dart';
+import 'package:app_flutter_thientin/src/login/screens/index_page/view.dart';
 import 'package:app_flutter_thientin/src/splash/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

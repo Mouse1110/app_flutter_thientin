@@ -1,10 +1,11 @@
 import 'package:app_flutter_thientin/src/campaign/cubit/campaign_cubit.dart';
-import 'package:app_flutter_thientin/src/campaign/screens/index.dart';
+import 'package:app_flutter_thientin/src/campaign/screens/view.dart';
 import 'package:app_flutter_thientin/src/campaign/screens/validation/data_validation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../home/cubit/home_cubit.dart';
 import '../home/models/campaign_model.dart';
 
 class Campaign extends StatefulWidget {

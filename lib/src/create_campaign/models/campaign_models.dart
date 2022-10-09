@@ -1,9 +1,7 @@
-import 'dart:convert';
+import 'dart:io';
 
-import 'package:dio/dio.dart';
-
-class Campaign {
-  Campaign({
+class CampaignRequestModel {
+  CampaignRequestModel({
     required this.img,
     required this.name,
     required this.content,
@@ -14,54 +12,53 @@ class Campaign {
     required this.checkList,
   });
 
-  String img;
-  final String name;
-  final String content;
-  final int dateRegistration;
-  final int dateCharity;
-  final int dateApprove;
-  final int dateDisbur;
-  final List<CheckList> checkList;
+  File img;
+  String name;
+  String content;
+  int dateRegistration;
+  int dateCharity;
+  int dateApprove;
+  int dateDisbur;
+  CheckList checkList;
 
-  String toJson() => json.encode(toMap());
-
-  Future<Map<String, dynamic>> toMap() async => {
-        "img": await MultipartFile.fromFile(img, filename: 'upload.png'),
+  Map<String, dynamic> toJson() => {
+        "img": img,
         "name": name,
         "content": content,
         "date_registration": dateRegistration,
         "date_charity": dateCharity,
         "date_approve": dateApprove,
         "date_disbur": dateDisbur,
-        "check_list": List<dynamic>.from(checkList.map((x) => x.toMap())),
+        "check_list": checkList.toJson(),
       };
 }
 
 class CheckList {
   CheckList({
-    this.name,
-    required this.phone,
-    required this.content,
-    required this.type,
+    required this.person,
+    required this.body,
   });
-  String? name;
-  final String phone;
-  final String content;
-  final String type;
 
-  factory CheckList.fromJson(String str) => CheckList.fromMap(json.decode(str));
+  List<String> person;
+  List<BodyApproveModel> body;
 
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => {
+        "person": List<dynamic>.from(person.map((x) => x)),
+        "body": List<dynamic>.from(body.map((x) => x.toJson())),
+      };
+}
 
-  factory CheckList.fromMap(Map<String, dynamic> json) => CheckList(
-        phone: json["phone"],
-        content: json["content"],
-        type: json["type"],
-      );
+class BodyApproveModel {
+  BodyApproveModel({
+    required this.content,
+    required this.tag,
+  });
 
-  Map<String, dynamic> toMap() => {
-        "phone": phone,
+  String content;
+  String tag;
+
+  Map<String, dynamic> toJson() => {
         "content": content,
-        "type": type,
+        "type": tag,
       };
 }

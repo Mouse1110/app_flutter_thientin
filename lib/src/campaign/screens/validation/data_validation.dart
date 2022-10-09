@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CampaignDataValidation {
@@ -13,6 +14,36 @@ class CampaignDataValidation {
   //Get
   Stream<CampaignModel> get streamCampaign =>
       _campaign.stream.transform(validateCampaign);
+
+  Stream<bool> get streamButtonForm =>
+      Rx.combineLatest2(streamCampaign, streamCampaign, (a, b) {
+        CampaignModel data = (a as CampaignModel);
+
+        if (data.info.disburStart -
+                DateTime.now().millisecondsSinceEpoch / 1000 <
+            0) return false;
+        return true;
+      });
+
+  Stream<bool> get streamButtonDonate =>
+      Rx.combineLatest2(streamCampaign, streamCampaign, (a, b) {
+        CampaignModel data = (a as CampaignModel);
+
+        if (data.info.disburStart -
+                DateTime.now().millisecondsSinceEpoch / 1000 <
+            0) return false;
+        return true;
+      });
+
+  Stream<bool> get streamButtonApprove =>
+      Rx.combineLatest2(streamCampaign, streamCampaign, (a, b) {
+        CampaignModel data = (a as CampaignModel);
+
+        if (data.info.approveStart -
+                DateTime.now().millisecondsSinceEpoch / 1000 <
+            0) return true;
+        return false;
+      });
   // Set
   Function(CampaignModel) get addCampaign => _campaign.sink.add;
   // Tranformers
@@ -37,16 +68,15 @@ class CampaignDataValidation {
   }
 
   int indexTimeline(CampaignModel data) {
-    if (data.info.regStart - DateTime.now().millisecondsSinceEpoch / 1000 >=
-        0) {
+    if (data.info.regStart - DateTime.now().millisecondsSinceEpoch / 1000 < 0) {
       if (data.info.charityStart -
-              DateTime.now().millisecondsSinceEpoch / 1000 >=
+              DateTime.now().millisecondsSinceEpoch / 1000 <
           0) {
         if (data.info.approveStart -
-                DateTime.now().millisecondsSinceEpoch / 1000 >=
+                DateTime.now().millisecondsSinceEpoch / 1000 <
             0) {
           if (data.info.disburStart -
-                  DateTime.now().millisecondsSinceEpoch / 1000 >=
+                  DateTime.now().millisecondsSinceEpoch / 1000 <
               0) {
             return 4;
           }
@@ -74,9 +104,11 @@ class CampaignDataValidation {
   }
 
   String timeRemaining(int date) {
-    Duration time = DateTime.now()
-        .difference(DateTime.fromMillisecondsSinceEpoch(date * 1000));
+    Duration time = DateTime.fromMillisecondsSinceEpoch(date * 1000)
+        .difference(DateTime.now());
     if (time.inDays > 0) return 'Còn lại: ${time.inDays} ngày';
     return 'Chờ giải ngân';
   }
+
+  void direcProof(BuildContext context) {}
 }

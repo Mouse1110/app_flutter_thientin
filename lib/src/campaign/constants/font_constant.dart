@@ -5,9 +5,9 @@ const TextStyle fontTitleCenter =
     TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold);
 
 const TextStyle fontTitle =
-    TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold);
+    TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold);
 const TextStyle fontBody =
-    TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w500);
+    TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w300);
 
 TextStyle fontHint = TextStyle(
     fontSize: 8,

@@ -40,7 +40,7 @@ class Data {
   String? provincial;
   String? district;
   String? homeAddress;
-  String? permission;
+  int? permission;
   String? reason;
   String? avatar;
 

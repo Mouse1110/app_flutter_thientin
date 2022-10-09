@@ -1,5 +1,5 @@
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
-import 'package:app_flutter_thientin/src/login/screens/signup_page/index.dart';
+import 'package:app_flutter_thientin/src/login/screens/signup_page/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';

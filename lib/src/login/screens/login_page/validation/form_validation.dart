@@ -47,7 +47,7 @@ class FormValidation {
   final validateFormPass =
       StreamTransformer<String, String>.fromHandlers(handleData: ((data, sink) {
     if (data.length < 5) {
-      sink.addError("Số điện thoại không hợp lệ");
+      sink.addError("Mật khẩu không hợp lệ");
     } else {
       sink.add(data);
     }

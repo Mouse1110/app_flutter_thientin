@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../utils/notification.dart';
 import '../models/campaign_model.dart';
 import '../models/failure_model.dart';
 import '../repository/api_repository.dart';
@@ -8,8 +9,13 @@ import '../repository/api_repository.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit({required this.apiRepository}) : super(HomeInitial());
-  final ApiHomeRepository apiRepository;
+  HomeCubit() : super(HomeInitial());
+  final ApiHomeRepository apiRepository = ApiHomeRepository();
+  final NotificationService notificationService = NotificationService();
+
+  void initNotification() async {
+    notificationService.initialize();
+  }
 
   // Event
   Future<void> fetchCampaignApi({required String accessToken}) async {

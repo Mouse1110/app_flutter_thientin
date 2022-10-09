@@ -1,3 +1,4 @@
+import 'package:app_flutter_thientin/src/campaign/constants/font_constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -57,13 +58,9 @@ class _TimeLineState extends State<TimeLine> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: Text('Thời gian hoạt động',
-              style: GoogleFonts.inter(
-                  fontSize: 14,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400)),
+          child: Text('Thời gian hoạt động', style: fontTitle),
         ),
         const SizedBox(
           height: 10,
@@ -142,17 +139,11 @@ class TimeCampaign extends StatelessWidget {
       children: [
         Text(
           text,
-          style: GoogleFonts.raleway(
-            fontSize: 10,
-            color: Color.fromRGBO(35, 45, 94, 1).withOpacity(0.75),
-          ),
+          style: fontBody,
         ),
         Text(
           date,
-          style: GoogleFonts.raleway(
-            fontSize: 8,
-            color: Color.fromRGBO(35, 45, 94, 1).withOpacity(0.5),
-          ),
+          style: fontHint,
         )
       ],
     );

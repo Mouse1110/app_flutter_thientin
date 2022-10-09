@@ -27,9 +27,12 @@ class ItemDonate extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: fontTitle,
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     phone,
-                    style: fontHint,
+                    style: fontBody,
                   ),
                 ],
               ),

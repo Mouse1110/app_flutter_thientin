@@ -1,4 +1,6 @@
+import 'package:app_flutter_thientin/src/donate/index.dart';
 import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
+import 'package:app_flutter_thientin/src/proof/index.dart';
 import 'package:app_flutter_thientin/src/splash/index.dart';
 import 'package:flutter/material.dart';
 
@@ -36,14 +38,36 @@ class RoutesGenerator {
             builder: (_) => ErrorPage(
                   message: "Không tìm thấy thông tin chiến dịch",
                 ));
-      case '/create_capaign':
+      case '/create_campaign':
         return MaterialPageRoute(builder: (_) => const CreateCampaign());
       case '/profile':
         return MaterialPageRoute(builder: (_) => const Profile());
       case '/tranfers':
         return MaterialPageRoute(builder: (_) => const Tranfers());
+      case '/donate':
+        if (args is int) {
+          return MaterialPageRoute(
+              builder: (_) => Donate(
+                    id: args,
+                  ));
+        }
+        return MaterialPageRoute(builder: (_) => const Home());
       case '/transaction':
-        return MaterialPageRoute(builder: (_) => const Transaction());
+        if (args is int) {
+          return MaterialPageRoute(
+              builder: (_) => Transaction(
+                    id: args,
+                  ));
+        }
+        return MaterialPageRoute(builder: (_) => const Home());
+      case '/proof':
+        if (args is CampaignModel) {
+          return MaterialPageRoute(
+              builder: (_) => Proof(
+                    data: args,
+                  ));
+        }
+        return MaterialPageRoute(builder: (_) => const Home());
       case '/splash':
         return MaterialPageRoute(builder: (_) => const Splash());
       case '/erorr':

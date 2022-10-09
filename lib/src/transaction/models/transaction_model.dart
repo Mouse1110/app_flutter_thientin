@@ -1,59 +1,30 @@
-// To parse this JSON data, do
-//
-//     final transactionShowOtd = transactionShowOtdFromJson(jsonString)
-
-import 'dart:convert';
-
 class TransactionModel {
   TransactionModel({
+    required this.id,
+    required this.idCaimpain,
+    required this.publicKey,
     required this.hash,
-    required this.blockHash,
-    required this.blockNumber,
-    required this.from,
-    required this.to,
-    required this.gas,
-    required this.gasPrice,
-    required this.value,
+    required this.type,
+    required this.amount,
     required this.date,
   });
 
+  String id;
+  int idCaimpain;
+  String publicKey;
   String hash;
-  String blockHash;
-  int blockNumber;
-  String from;
-  String to;
-  int gas;
-  String gasPrice;
-  String value;
+  String type;
+  String amount;
   int date;
 
-  factory TransactionModel.fromJson(String str) =>
-      TransactionModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory TransactionModel.fromMap(Map<String, dynamic> json) =>
+  factory TransactionModel.fromJson(Map<String, dynamic> json) =>
       TransactionModel(
-        hash: json["hash"],
-        blockHash: json["blockHash"],
-        blockNumber: json["blockNumber"],
-        from: json["from"],
-        to: json["to"],
-        gas: json["gas"],
-        gasPrice: json["gasPrice"],
-        value: '${json["value"]}',
-        date: json["date"],
+        id: json["id"] ?? '0',
+        idCaimpain: json["id_caimpain"] ?? 0,
+        publicKey: json["public_key"] ?? '',
+        hash: json["hash"] ?? '',
+        type: json["type"] ?? '',
+        amount: '${json["amount"]}',
+        date: json["date"] ?? '',
       );
-
-  Map<String, dynamic> toMap() => {
-        "hash": hash,
-        "blockHash": blockHash,
-        "blockNumber": blockNumber,
-        "from": from,
-        "to": to,
-        "gas": gas,
-        "gasPrice": gasPrice,
-        "value": value,
-        "date": date,
-      };
 }

@@ -1,46 +1,60 @@
-import 'package:app_flutter_thientin/src/transaction/screens/index.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
+import 'package:app_flutter_thientin/src/transaction/screens/info_transaction_page/view.dart';
 
-import '../error/index.dart';
-import '../login/cubit/login_cubit.dart';
-import '../splash/index.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'cubit/transaction_cubit.dart';
 import 'cubit/transaction_state.dart';
 
-class Transaction extends StatelessWidget {
-  const Transaction({Key? key}) : super(key: key);
+import 'screens/transaction_page/view.dart';
+import 'screens/validation/data_validation.dart';
+
+class Transaction extends StatefulWidget {
+  const Transaction({Key? key, required this.id}) : super(key: key);
+  final int id;
+  @override
+  State<Transaction> createState() => _TransactionState();
+}
+
+class _TransactionState extends State<Transaction> {
+  final TransactionDataValidation validation = TransactionDataValidation();
+  @override
+  void initState() {
+    context.read<TransactionCubit>().fetchTransactionApi(
+        context.read<LoginCubit>().user!.accessToken,
+        id: widget.id);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    context.read<TransactionCubit>().fetchTransactionApi(
-        id: '', accessToken: context.read<LoginCubit>().user!.accessToken);
     return BlocBuilder<TransactionCubit, TransactionState>(
         builder: (context, state) {
-      if (state is TransactionLoading) {
-        print("Login Loading");
-        return const Splash();
+      if (state is TransactionInitial) {
+      } else if (state is TransactionLoading) {
+        print("TransactionLoading");
       } else if (state is TransactionError) {
-        ErrorPage.push(context: context, error: state.failure.message);
+        print("TransactionError");
       } else if (state is TransactionLoaded) {
-        print("Login Loaded:${state.transaction.blockHash}");
-        return const TransactionPage(
-            // campaign: state.campaign,
-            );
+        print("TransactionLoaded");
+        validation.addTransactionSave(
+            context.read<TransactionCubit>().saveTransaction);
+        print(context.read<TransactionCubit>().saveTransaction);
+        validation.addTransaction(state.transaction);
+        validation.chartShow(state.transaction);
+      } else if (state is InfoTransactionLoaded) {
+        print("TransactionLoaded");
+        validation.addInfoTransaction(state.data);
       }
-      return const Splash();
+      switch (context.read<TransactionCubit>().page) {
+        case 0:
+          return TransactionPage(validation: validation);
+        case 1:
+          return InfoTransactionPage(validation: validation);
+        default:
+          return TransactionPage(validation: validation);
+      }
     });
-  }
-
-  static Future<void> push({required BuildContext context}) async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const Transaction()));
-    });
-  }
-
-  static Future<void> pop({required BuildContext context}) async {
-    SystemNavigator.pop();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:app_flutter_thientin/src/profile/screens/index.dart';
+import 'package:app_flutter_thientin/src/profile/screens/view.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 

@@ -1,5 +1,5 @@
 import 'package:app_flutter_thientin/src/home/cubit/home_cubit.dart';
-import 'package:app_flutter_thientin/src/home/screens/index.dart';
+import 'package:app_flutter_thientin/src/home/screens/view.dart';
 import 'package:app_flutter_thientin/src/home/screens/validations/data_validation.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/routes/routes_navigator.dart';
@@ -18,6 +18,8 @@ class _HomeState extends State<Home> {
   DataValidation dataValidation = DataValidation();
   @override
   void initState() {
+    dataValidation.addButtonCreateCampaign(
+        context.read<LoginCubit>().user!.data.permission);
     context
         .read<HomeCubit>()
         .fetchCampaignApi(
@@ -25,6 +27,8 @@ class _HomeState extends State<Home> {
         .then((value) => context.read<HomeCubit>().fetchListCampaignApi(
             accessToken: context.read<LoginCubit>().user!.accessToken));
     super.initState();
+
+    listenStream(context);
   }
 
   @override
@@ -36,15 +40,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      if (state is HomeInitial) {}
       if (state is HomeLoading) {
-        return HomePage(
-          validation: dataValidation,
-        );
+        print('HomeLoading');
       }
       if (state is HomeError) {
         print('Home Error');
-        RouteNavigator.pushName(context, '/error',
-            arguments: state.failure.message);
       } else if (state is HomeLoadedCampaign) {
         print("HomeLoadedCampaign");
         dataValidation.addCampaign(state.campaign);
@@ -57,4 +58,17 @@ class _HomeState extends State<Home> {
       );
     });
   }
+
+  void listenStream(BuildContext context) => context
+          .read<HomeCubit>()
+          .notificationService
+          .onNotificationClick
+          .stream
+          .listen((payload) {
+        List<String> params = payload!.split('|');
+        if (params.length > 1) {
+          Navigator.of(context)
+              .pushNamed(params[0], arguments: int.parse(params[1]));
+        }
+      });
 }
