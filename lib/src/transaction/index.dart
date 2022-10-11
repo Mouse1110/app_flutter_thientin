@@ -20,6 +20,7 @@ class _TransactionState extends State<Transaction> {
   final TransactionDataValidation validation = TransactionDataValidation();
   @override
   void initState() {
+    context.read<TransactionCubit>().page = 0;
     context.read<TransactionCubit>().fetchTransactionApi(
         context.read<LoginCubit>().user!.accessToken,
         id: widget.id);

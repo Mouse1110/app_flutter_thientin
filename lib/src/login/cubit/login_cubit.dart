@@ -32,8 +32,10 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future nav({Widget? page}) async {
-    emit(LoginNav(page: page ?? const IndexLoginPage()));
+  int initial = 0;
+  Future nav(int page) async {
+    initial = page;
+    emit(LoginInitial());
   }
 
   /// Data global

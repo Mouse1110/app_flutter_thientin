@@ -5,16 +5,16 @@ import 'package:rxdart/rxdart.dart';
 
 class DonateDataValidation {
   String total = '0';
-  final _id = BehaviorSubject<int>();
+  final id = BehaviorSubject<int>();
   final _total = BehaviorSubject<String>();
   final _input = BehaviorSubject<String>();
   final _button = BehaviorSubject<String>();
   dispose() {
-    _id.close();
+    id.close();
   }
 
   //Get
-  Stream<int> get streamid => _id.stream;
+  Stream<int> get streamid => id.stream;
   Stream<String> get streamInput => _input.stream.transform(validateInput);
   Stream<String> get streamTotal => _total.stream.transform(validateTotal);
   Stream<bool> get streamButton =>
@@ -39,7 +39,7 @@ class DonateDataValidation {
         return true;
       }));
   // Set
-  Function(int) get addId => _id.sink.add;
+  Function(int) get addId => id.sink.add;
   void addInput(String data) {
     _input.sink.add(data);
   }

@@ -11,6 +11,14 @@ class ApplyInitial extends ApplyState {}
 
 class ApplyLoading extends ApplyState {}
 
+class ApplyLoadedFile extends ApplyState {
+  const ApplyLoadedFile({required this.data});
+  final List<dynamic> data;
+
+  @override
+  List<Object> get props => [data];
+}
+
 class ApplyLoaded extends ApplyState {
   // const ApplyLoaded({required this.applyOtd});
   // final ApplyOtd applyOtd;

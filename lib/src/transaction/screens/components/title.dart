@@ -5,8 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants/color_contants.dart';
 
 class TitleComponent extends StatelessWidget {
-  const TitleComponent({Key? key}) : super(key: key);
-
+  const TitleComponent({
+    Key? key,
+    required this.back,
+  }) : super(key: key);
+  final Function back;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -16,7 +19,9 @@ class TitleComponent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                back();
+              },
               child: Container(
                 height: 36,
                 width: 36,

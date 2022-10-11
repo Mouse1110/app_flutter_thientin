@@ -1,4 +1,5 @@
 import 'package:app_flutter_thientin/src/components/flash_message_component.dart';
+import 'package:app_flutter_thientin/src/routes/routes_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,105 +20,112 @@ class CreateCampaignPage extends StatefulWidget {
 class _CreateCampaignPageState extends State<CreateCampaignPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              TopContainer(),
-              Expanded(
-                  child: SizedBox(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ////====================================================01: Thông tin===================================================
-                      _information(widget.validation),
-                      const SizedBox(height: 15),
-                      ////====================================================02: Thời gian===================================================
-                      _addTime(context, widget.validation),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ////====================================================03: Kiểm duyệt===================================================
-                      _censorship(widget.validation),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                            width: 2, color: Colors.blue)),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 23, vertical: 12),
-                                    child: const Text(
-                                      "Quay lại",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black),
-                                      textAlign: TextAlign.center,
-                                    )),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            StreamBuilder<bool>(
-                                stream: widget.validation.streamButtonFinish,
-                                builder: (context, snapshot) {
-                                  return Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: !snapshot.hasData
-                                          ? null
-                                          : () {
-                                              context
-                                                  .read<CreateCampaignCubit>()
-                                                  .changePage(1);
-                                            },
-                                      style: ElevatedButton.styleFrom(
-                                        primary: const Color.fromRGBO(
-                                            88, 145, 255, 1),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                      ),
-                                      child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 23, vertical: 12),
-                                          alignment: Alignment.center,
-                                          child: const Text(
-                                            "Xác nhận",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.white),
-                                            textAlign: TextAlign.center,
-                                          )),
-                                    ),
-                                  );
-                                }),
-                          ],
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pushNamed('/home');
+        return false;
+      },
+      child: SafeArea(
+          child: Scaffold(
+        body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                TopContainer(),
+                Expanded(
+                    child: SizedBox(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ////====================================================01: Thông tin===================================================
+                        _information(widget.validation),
+                        const SizedBox(height: 15),
+                        ////====================================================02: Thời gian===================================================
+                        _addTime(context, widget.validation),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      )
-                    ],
+                        ////====================================================03: Kiểm duyệt===================================================
+                        _censorship(widget.validation),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    RouteNavigator.pushName(context, '/home');
+                                  },
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                              width: 2, color: Colors.blue)),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 23, vertical: 12),
+                                      child: const Text(
+                                        "Quay lại",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              StreamBuilder<bool>(
+                                  stream: widget.validation.streamButtonFinish,
+                                  builder: (context, snapshot) {
+                                    return Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: !snapshot.hasData
+                                            ? null
+                                            : () {
+                                                context
+                                                    .read<CreateCampaignCubit>()
+                                                    .changePage(1);
+                                              },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: const Color.fromRGBO(
+                                              88, 145, 255, 1),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                        ),
+                                        child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 23, vertical: 12),
+                                            alignment: Alignment.center,
+                                            child: const Text(
+                                              "Xác nhận",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white),
+                                              textAlign: TextAlign.center,
+                                            )),
+                                      ),
+                                    );
+                                  }),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ))
-            ],
-          )),
-    ));
+                ))
+              ],
+            )),
+      )),
+    );
   }
 
   Widget _information(CreateCampaignFormValidation validation) {
@@ -571,7 +579,7 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
+                                            const Text(
                                               "Kiểm duyệt",
                                               style: TextStyle(
                                                   fontSize: 10,
@@ -709,8 +717,12 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
                                                         DateTime first = DateTime
                                                             .fromMillisecondsSinceEpoch(
                                                                 validation
-                                                                    .timeApprove
-                                                                    .value);
+                                                                        .timeApprove
+                                                                        .value +
+                                                                    24 *
+                                                                        60 *
+                                                                        60 *
+                                                                        1000);
                                                         DateTime? date =
                                                             await TimePicker.pick(
                                                                 context,
@@ -833,6 +845,132 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
                 ),
               ),
               const SizedBox(height: 10),
+              const Text(
+                "| Đơn đăng ký của người thụ hưởng được duyệt hay\nkhông sẽ dựa vào các thông tin sau",
+                style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black),
+              ),
+              StreamBuilder<List<String>>(
+                stream: validation.streamPhones,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        if (snapshot.data!.length > 0)
+                          const Text(
+                            'Người tham gia kiểm duyệt:',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        Wrap(
+                          children: snapshot.data!
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          e,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const Spacer(),
+                                        TextButton(
+                                            onPressed: () {
+                                              validation
+                                                  .removeObjectInListPhone(e);
+                                            },
+                                            child: const Text(
+                                              '-',
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ))
+                                      ],
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+              StreamBuilder<List<BodyApproveModel>>(
+                stream: validation.streamBodyApproveData,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        if (snapshot.data!.length > 0)
+                          const Text(
+                            'Nội dung kiểm duyệt:',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        Column(
+                          children: snapshot.data!
+                              .map(
+                                (e) => Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            e.content,
+                                            style:
+                                                const TextStyle(fontSize: 14),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          e.tag,
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                        const Spacer(),
+                                        TextButton(
+                                            onPressed: () {
+                                              validation
+                                                  .removeObjectInListApprove(e);
+                                            },
+                                            child: const Text(
+                                              '-',
+                                              style: TextStyle(
+                                                  fontSize: 32,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ))
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 0),
                 child: Row(
@@ -840,22 +978,12 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       width: 4,
-                      height: 300,
-                      color: !snapshot.hasData
-                          ? const Color.fromRGBO(0, 0, 0, 0.15)
-                          : const Color.fromRGBO(88, 145, 255, 1),
+                      height: 260,
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "| Đơn đăng ký của người thụ hưởng được duyệt hay\nkhông sẽ dựa vào các thông tin sau",
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black),
-                          ),
                           const SizedBox(
                             height: 25,
                           ),
@@ -866,8 +994,10 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
-                                    color:
-                                        const Color.fromRGBO(88, 145, 255, 1))),
+                                  color: !snapshot.hasData
+                                      ? const Color.fromRGBO(0, 0, 0, 0.15)
+                                      : const Color.fromRGBO(88, 145, 255, 1),
+                                )),
                             child: Column(
                               children: [
                                 Row(
@@ -1058,124 +1188,6 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
                     ),
                   ],
                 ),
-              ),
-              StreamBuilder<List<String>>(
-                stream: validation.streamPhones,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Người tham gia kiểm duyệt:',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        Wrap(
-                          children: snapshot.data!
-                              .map((e) => Container(
-                                    width: 150,
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.7),
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          e,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const Spacer(),
-                                        TextButton(
-                                            onPressed: () {},
-                                            child: const Text(
-                                              '-',
-                                              style: TextStyle(
-                                                  fontSize: 24,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ))
-                                      ],
-                                    ),
-                                  ))
-                              .toList(),
-                        ),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
-              StreamBuilder<List<BodyApproveModel>>(
-                stream: validation.streamBodyApproveData,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Nội dung kiểm duyệt:',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        Column(
-                          children: snapshot.data!
-                              .map(
-                                (e) => Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            e.content,
-                                            style:
-                                                const TextStyle(fontSize: 14),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          e.tag,
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                        const Spacer(),
-                                        TextButton(
-                                            onPressed: () {},
-                                            child: const Text(
-                                              '-',
-                                              style: TextStyle(
-                                                  fontSize: 32,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ))
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
               ),
             ],
           );

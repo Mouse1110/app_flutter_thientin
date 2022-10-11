@@ -1,5 +1,6 @@
 import 'package:app_flutter_thientin/src/donate/index.dart';
 import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
+import 'package:app_flutter_thientin/src/pdf/index.dart';
 import 'package:app_flutter_thientin/src/proof/index.dart';
 import 'package:app_flutter_thientin/src/splash/index.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +25,26 @@ class RoutesGenerator {
       case '/home':
         return MaterialPageRoute(builder: (_) => const Home());
       case '/apply':
-        return MaterialPageRoute(builder: (_) => const Apply());
-      case '/approve':
-        return MaterialPageRoute(builder: (_) => const Approve());
-      case '/campaign':
         if (args is CampaignModel) {
           return MaterialPageRoute(
+              builder: (_) => Apply(
+                    data: args,
+                  ));
+        }
+        return MaterialPageRoute(builder: (_) => const Home());
+      case '/approve':
+        if (args is int) {
+          return MaterialPageRoute(
+              builder: (_) => Approve(
+                    id: args,
+                  ));
+        }
+        return MaterialPageRoute(builder: (_) => const Home());
+      case '/campaign':
+        if (args is String) {
+          return MaterialPageRoute(
               builder: (_) => Campaign(
-                    campaign: args,
+                    id: args,
                   ));
         }
         return MaterialPageRoute(
@@ -78,6 +91,14 @@ class RoutesGenerator {
                   ));
         }
         return MaterialPageRoute(builder: (_) => ErrorPage());
+      case '/pdf':
+        if (args is String) {
+          return MaterialPageRoute(
+              builder: (_) => PDFScreen(
+                    path: args,
+                  ));
+        }
+        return MaterialPageRoute(builder: (_) => const Home());
       default:
         return MaterialPageRoute(builder: (_) => const Login());
     }

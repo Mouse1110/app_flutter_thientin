@@ -1,4 +1,5 @@
 import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
+import 'package:app_flutter_thientin/src/routes/routes_navigator.dart';
 import 'package:app_flutter_thientin/src/utils/money_format.dart';
 import 'package:flutter/material.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
@@ -81,54 +82,64 @@ class _ProofPageState extends State<ProofPage> {
         stream: widget.validation.streamCampaign,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return SafeArea(
-              child: Scaffold(
-                body: Column(
-                  children: [
-                    TitleComponent(
-                      onBack: () {},
-                      onClickTransaction: () {
-                        Navigator.of(context).pushNamed(
-                          '/transaction',
-                          arguments: snapshot.data!.idCaimpain,
-                        );
-                      },
-                    ),
-                    StreamBuilder<int>(
-                        stream: widget.validation.streamInitPage,
-                        builder: (context, init) {
-                          if (init.hasData) {
-                            return Expanded(
-                                child: ContainedTabBarView(
-                              onChange: (i) {
-                                widget.validation.addInitPage(i);
-                              },
-                              tabs: [
-                                Text(
-                                  'Đã ủng hộ',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: init.data == 0
-                                          ? Colors.red
-                                          : Colors.black),
-                                ),
-                                Text(
-                                  'Người nhận',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: init.data == 1
-                                          ? Colors.red
-                                          : Colors.black),
-                                ),
-                              ],
-                              views: views(snapshot.data!),
-                            ));
-                          }
-                          return const SizedBox.shrink();
-                        })
-                  ],
+            return WillPopScope(
+              onWillPop: () async {
+                RouteNavigator.pushName(context, '/campaign',
+                    arguments: '${snapshot.data!.idCaimpain}');
+                return false;
+              },
+              child: SafeArea(
+                child: Scaffold(
+                  body: Column(
+                    children: [
+                      TitleComponent(
+                        onBack: () {
+                          RouteNavigator.pushName(context, '/campaign',
+                              arguments: '${snapshot.data!.idCaimpain}');
+                        },
+                        onClickTransaction: () {
+                          Navigator.of(context).pushNamed(
+                            '/transaction',
+                            arguments: snapshot.data!.idCaimpain,
+                          );
+                        },
+                      ),
+                      StreamBuilder<int>(
+                          stream: widget.validation.streamInitPage,
+                          builder: (context, init) {
+                            if (init.hasData) {
+                              return Expanded(
+                                  child: ContainedTabBarView(
+                                onChange: (i) {
+                                  widget.validation.addInitPage(i);
+                                },
+                                tabs: [
+                                  Text(
+                                    'Đã ủng hộ',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: init.data == 0
+                                            ? Colors.red
+                                            : Colors.black),
+                                  ),
+                                  Text(
+                                    'Người nhận',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: init.data == 1
+                                            ? Colors.red
+                                            : Colors.black),
+                                  ),
+                                ],
+                                views: views(snapshot.data!),
+                              ));
+                            }
+                            return const SizedBox.shrink();
+                          })
+                    ],
+                  ),
                 ),
               ),
             );

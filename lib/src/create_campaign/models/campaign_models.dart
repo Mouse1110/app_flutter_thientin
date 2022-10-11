@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
+
 class CampaignRequestModel {
   CampaignRequestModel({
     required this.img,
@@ -21,8 +23,8 @@ class CampaignRequestModel {
   int dateDisbur;
   CheckList checkList;
 
-  Map<String, dynamic> toJson() => {
-        "img": img,
+  Future<Map<String, dynamic>> toJson() async => {
+        "img": await MultipartFile.fromFile(img.path, filename: 'upload.txt'),
         "name": name,
         "content": content,
         "date_registration": dateRegistration,
@@ -43,7 +45,7 @@ class CheckList {
   List<BodyApproveModel> body;
 
   Map<String, dynamic> toJson() => {
-        "person": List<dynamic>.from(person.map((x) => x)),
+        "person": List<String>.from(person.map((x) => x)),
         "body": List<dynamic>.from(body.map((x) => x.toJson())),
       };
 }

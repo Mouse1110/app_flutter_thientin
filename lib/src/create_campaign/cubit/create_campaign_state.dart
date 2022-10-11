@@ -8,3 +8,9 @@ abstract class CreateCampaignState extends Equatable {
 }
 
 class CreateCampaignInitial extends CreateCampaignState {}
+
+class CreateCampaignLoading extends CreateCampaignState {}
+
+class CreateCampaignLoaded extends CreateCampaignState {}
+
+class CreateCampaignError extends CreateCampaignState {}

@@ -124,7 +124,7 @@ class _BottomPageState extends State<BottomPage> {
             ),
             TextButton(
               onPressed: () {
-                SignUpPage.push(context: context);
+                context.read<LoginCubit>().nav(2);
               },
               child: Text('Đăng ký',
                   style: GoogleFonts.roboto(

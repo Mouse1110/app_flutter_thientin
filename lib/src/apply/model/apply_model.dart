@@ -1,6 +1,6 @@
-class Apply {
+class ApplyModel {
   String path = '';
   String type;
   String? id = '';
-  Apply({required this.type, required this.path, this.id});
+  ApplyModel({required this.type, required this.path, this.id});
 }

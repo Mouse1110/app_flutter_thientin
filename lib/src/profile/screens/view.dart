@@ -1,13 +1,6 @@
-import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../login/models/user_model.dart';
-import '../models/info.dart';
-import 'components/info_detail.dart';
-import 'components/item_action.dart';
-import 'components/user_detail.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -17,111 +10,125 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  User? user;
-
-  @override
-  void initState() {
-    super.initState();
-    // TODO: implement initState
-    list_info_item = [
-      InfoItem(
-          icon: Icons.notifications_active,
-          press: () {
-            bug(context);
-          },
-          title: 'Thông báo'),
-      InfoItem(
-          icon: Icons.add,
-          press: () {
-            bug(context);
-          },
-          title: 'Nạp tiền'),
-      InfoItem(icon: Icons.assignment_ind, press: () {}, title: 'Chuyển tiền'),
-      InfoItem(
-          icon: Icons.book,
-          press: () {
-            bug(context);
-          },
-          title: 'Liên kết ví'),
-      InfoItem(
-          icon: Icons.arrow_back,
-          press: () {
-            out(context);
-          },
-          title: 'Đăng xuất'),
-    ];
-
-    // _user = UserControllerr();
-    // _user!.postUser2().then((value) {
-    //   if (value != null) {
-    //     registerOTD = value;
-    //     setState(() {});
-    //   }
-    // });
-  }
-
-  static const colortheme = Color.fromRGBO(245, 245, 245, 1);
-  List<InfoItem> list_info_item = [];
-
   Widget build(BuildContext context) {
-    user = context.read<LoginCubit>().user;
-    return Scaffold(
-        backgroundColor: colortheme,
-        body: SafeArea(
-          child: RefreshIndicator(
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: const Color.fromRGBO(252, 252, 252, 1),
+          appBar: AppBar(
+            leading: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+              ),
+            ),
+            centerTitle: true,
+            title: const Text(
+              'Cá Nhân',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            elevation: 0,
+            backgroundColor: const Color.fromRGBO(88, 145, 255, 1),
+          ),
+          body: RefreshIndicator(
             onRefresh: () async {},
-            child: Column(
-              children: [
-                UserDetail(),
-                const SizedBox(
-                  height: 4,
-                ),
-                InfoDetail(
-                  phone: user!.data.phone,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: new BorderRadius.all(Radius.circular(15)),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 40,
                   ),
-                  margin: EdgeInsets.all(10),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Thông tin',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Color.fromRGBO(151, 163, 182, 1)),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 20),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        )),
+                    child: Column(
                       children: [
-                        Icon(
-                          Icons.do_disturb_on,
-                          size: 30,
-                          color: Colors.red,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            child: Text(
-                          'Chú ý ! Vui lòng liên kết với tài hoản ngân hàng để có thể thực hiện một số tính năng của ứng dụng',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
-                          textAlign: TextAlign.justify,
-                        ))
+                        Row(
+                          children: const [
+                            Icon(Icons.person),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              'Nguyễn Long Bá',
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            Spacer(),
+                            Icon(Icons.arrow_right),
+                          ],
+                        )
                       ],
                     ),
                   ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 20),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        )),
                     child: Column(
-                        children: list_info_item
-                            .map(
-                              (e) => ItemAction(
-                                  icon: e.icon, title: e.title, press: e.press),
-                            )
-                            .toList()),
-                  ),
-                ),
-              ],
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(Icons.person),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text('Nguyễn Long Bá'),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Divider(),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   bug(context) {

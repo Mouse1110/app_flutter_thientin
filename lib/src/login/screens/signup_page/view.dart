@@ -1,24 +1,14 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
-import 'package:app_flutter_thientin/src/login/screens/index_page/view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../cubit/login_cubit.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
-
-  static Future<void> push({required BuildContext context}) async {
-    context.read<LoginCubit>().nav(
-          page: const SignUpPage(),
-        );
-  }
-
-  static Future<void> pop({required BuildContext context}) async {
-    context.read<LoginCubit>().nav(
-          page: const IndexLoginPage(),
-        );
-  }
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -42,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
             IconButton(
                 padding: const EdgeInsets.only(left: 30),
                 onPressed: () {
-                  SignUpPage.pop(context: context);
+                  context.read<LoginCubit>().nav(0);
                 },
                 icon: const Icon(
                   Icons.arrow_back,
@@ -169,7 +159,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
 
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<LoginCubit>().nav(1);
+                            },
                             style: ElevatedButton.styleFrom(
                               primary: const Color.fromARGB(255, 0, 0, 0),
                               shape: RoundedRectangleBorder(

@@ -24,13 +24,11 @@ class CampaignModel {
   List<ListUser> listUserReceiver;
   String image;
   int countDonate;
-  List<CheckList> checkList;
+  CheckList checkList;
   Info info;
 
   factory CampaignModel.fromJson(String str) =>
       CampaignModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
 
   factory CampaignModel.fromMap(Map<String, dynamic> json) => CampaignModel(
         idCaimpain: json["id_caimpain"],
@@ -42,55 +40,60 @@ class CampaignModel {
             json["list_user_receiver"].map((x) => ListUser.fromMap(x))),
         image: json["image"],
         countDonate: json["count_donate"],
-        checkList: List<CheckList>.from(
-            json["check_list"].map((x) => CheckList.fromMap(x))),
+        checkList: CheckList.fromJson(json["check_list"]),
         info: Info.fromMap(json["info"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "id_caimpain": idCaimpain,
-        "owner": owner,
-        "user": user.toMap(),
-        "list_user_donate":
-            List<dynamic>.from(listUserDonate.map((x) => x.toMap())),
-        "list_user_receiver":
-            List<dynamic>.from(listUserReceiver.map((x) => x.toMap())),
-        "image": image,
-        "count_donate": countDonate,
-        "check_list": List<dynamic>.from(checkList.map((x) => x.toMap())),
-        "info": info.toMap(),
-      };
 }
 
 class CheckList {
   CheckList({
-    required this.phone,
-    required this.content,
-    required this.type,
-    required this.id,
+    required this.person,
+    required this.body,
   });
 
-  String phone;
-  String content;
-  String type;
-  String id;
+  List<String> person;
+  List<BodyCheckListModel> body;
 
-  factory CheckList.fromJson(String str) => CheckList.fromMap(json.decode(str));
+  factory CheckList.fromRawJson(String str) =>
+      CheckList.fromJson(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toJson());
 
-  factory CheckList.fromMap(Map<String, dynamic> json) => CheckList(
-        phone: json["phone"],
-        content: json["content"],
-        type: json["type"],
-        id: json["_id"],
+  factory CheckList.fromJson(Map<String, dynamic> json) => CheckList(
+        person: List<String>.from(json["person"].map((x) => x.toString())),
+        body: List<BodyCheckListModel>.from(
+            json["body"].map((x) => BodyCheckListModel.fromJson(x))),
       );
 
-  Map<String, dynamic> toMap() => {
-        "phone": phone,
+  Map<String, dynamic> toJson() => {
+        "person": person,
+        "body": List<dynamic>.from(body.map((x) => x.toJson())),
+      };
+}
+
+class BodyCheckListModel {
+  BodyCheckListModel({
+    required this.content,
+    required this.type,
+  });
+
+  String content;
+  String type;
+
+  factory BodyCheckListModel.fromRawJson(String str) =>
+      BodyCheckListModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory BodyCheckListModel.fromJson(Map<String, dynamic> json) =>
+      BodyCheckListModel(
+        content: json["content"],
+        type: json["type"],
+      );
+
+  Map<String, dynamic> toJson() => {
         "content": content,
         "type": type,
-        "_id": id,
       };
 }
 

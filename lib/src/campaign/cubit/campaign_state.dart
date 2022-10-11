@@ -17,4 +17,6 @@ class CampaignLoaded extends CampaignState {
   List<Object> get props => [campaign];
 }
 
-class CampaignFailer extends CampaignState {}
+class CampaignError extends CampaignState {}
+
+class CampaignLoading extends CampaignState {}

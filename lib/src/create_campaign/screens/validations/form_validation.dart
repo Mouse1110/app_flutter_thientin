@@ -118,6 +118,11 @@ class CreateCampaignFormValidation {
   //// Kiểm duyệt
   ///
   List<String> phone = [];
+  void removeObjectInListPhone(String data) {
+    phone.remove(data);
+    addPhone(phone);
+  }
+
   void addPhoneApporve(String data) {
     if (data.length == 11) {
       String key = data[data.length - 1];
@@ -156,6 +161,11 @@ class CreateCampaignFormValidation {
       _tagApprove.stream,
       (a, b) => BodyApproveModel(content: a as String, tag: b as String));
   List<BodyApproveModel> apporves = [];
+  void removeObjectInListApprove(BodyApproveModel data) {
+    apporves.remove(data);
+    _bodyApproveData.sink.add(apporves);
+  }
+
   final _bodyApproveData = BehaviorSubject<List<BodyApproveModel>>();
   Stream<List<BodyApproveModel>> get streamBodyApproveData =>
       _bodyApproveData.stream;
@@ -180,7 +190,7 @@ class CreateCampaignFormValidation {
     _tagApprove.sink.add('');
   }
 
-  Future<CampaignRequestModel> joinDataCampaign() async {
+  CampaignRequestModel joinDataCampaign() {
     return CampaignRequestModel(
         img: File(_image.value.path),
         name: _name.value,
@@ -189,7 +199,6 @@ class CreateCampaignFormValidation {
         dateCharity: timeDonate.value,
         dateApprove: timeApprove.value,
         dateDisbur: timeDisbur.value,
-        checkList:
-            CheckList(person: phones.value, body: _bodyApproveData.value));
+        checkList: CheckList(person: phone, body: apporves));
   }
 }

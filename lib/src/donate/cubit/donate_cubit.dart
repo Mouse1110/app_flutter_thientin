@@ -12,6 +12,10 @@ class DonateCubit extends Cubit<DonateState> {
 
   final ApiDonateRepository apiRepository = ApiDonateRepository();
   // Event
+  void initial() {
+    emit(DonateInitial());
+  }
+
   Future<void> fetchDonateApi(
     String accessToken, {
     required int id,
@@ -19,7 +23,7 @@ class DonateCubit extends Cubit<DonateState> {
   }) async {
     emit(DonateLoading());
     try {
-      // await apiRepository.donate(accessToken, id: id, amount: amount);
+      await apiRepository.donate(accessToken, id: id, amount: amount);
       emit(DonateLoaded(amount: amount));
     } on Failure catch (e) {
       emit(DonateError());

@@ -2,9 +2,11 @@ import 'package:app_flutter_thientin/src/login/screens/login_page/view.dart';
 import 'package:app_flutter_thientin/src/login/screens/signup_page/view.dart';
 import 'package:app_flutter_thientin/src/login/constants/color_contants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../components/flash_message_component.dart';
+import '../../../cubit/login_cubit.dart';
 import '../components/title.dart';
 
 class BottomPage extends StatefulWidget {
@@ -37,7 +39,7 @@ class _BottomPageState extends State<BottomPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        LoginPage.push(context: context);
+                        context.read<LoginCubit>().nav(1);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 0, 0, 0),
@@ -58,7 +60,7 @@ class _BottomPageState extends State<BottomPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        SignUpPage.push(context: context);
+                        context.read<LoginCubit>().nav(2);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 255, 255, 255),

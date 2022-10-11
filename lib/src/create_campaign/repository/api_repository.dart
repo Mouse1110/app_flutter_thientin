@@ -1,10 +1,9 @@
-import 'package:app_flutter_thientin/src/create_campaign/models/campaign_models.dart';
 import 'package:app_flutter_thientin/src/create_campaign/service/api_service.dart';
 import 'package:dio/dio.dart';
 
-class ApiRepository {
-  const ApiRepository({required this.apiService});
-  final ApiService apiService;
+class CreateCampaignApiRepository {
+  CreateCampaignApiRepository();
+  final ApiService apiService = ApiService();
   Future<bool> create({
     required FormData data,
     required String accessToken,

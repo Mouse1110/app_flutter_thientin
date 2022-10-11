@@ -6,9 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../routes/routes_navigator.dart';
 import '../../utils/money_format.dart';
 import '../constants/api_constant.dart';
-import '../constants/color_constant.dart';
 import 'components/item_donate.dart';
 import 'components/item_show.dart';
 import 'components/time_line.dart';
@@ -117,7 +117,10 @@ Widget _active(BuildContext context, CampaignDataValidation validation,
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!) {
                 return TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      RouteNavigator.pushName(context, '/approve',
+                          arguments: campaign.idCaimpain);
+                    },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -138,57 +141,73 @@ Widget _buttonDonate(
     StreamBuilder<bool>(
         stream: validation.streamButtonDonate,
         builder: (context, snapshot) {
-          if (snapshot.hasData & snapshot.data!) {
-            return Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    color: Colors.white,
-                    height: 60,
-                    width: double.infinity,
-                    child: Container(
-                        height: 80,
-                        padding: const EdgeInsets.symmetric(horizontal: 14),
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed('/donate', arguments: id);
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                color: const Color.fromRGBO(14, 152, 210, 1),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Center(
-                                  child: Text(
-                                'Ủng hộ',
-                                style: fontButtonWhite,
-                              )),
-                            )))));
+          if (snapshot.hasData) {
+            if (snapshot.data!) {
+              return Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                      color: Colors.white,
+                      height: 60,
+                      width: double.infinity,
+                      child: Container(
+                          height: 80,
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed('/donate', arguments: id);
+                              },
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(14, 152, 210, 1),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  'Ủng hộ',
+                                  style: fontButtonWhite,
+                                )),
+                              )))));
+            }
+            return const SizedBox.shrink();
           }
           return const SizedBox.shrink();
         });
 
-Widget _buttonForm(CampaignDataValidation validation) => StreamBuilder<bool>(
-    stream: validation.streamButtonForm,
-    builder: (context, snapshot) {
-      if (snapshot.hasData && snapshot.data!) {
-        return InkWell(
-          onTap: () {},
-          child: Container(
-            width: double.infinity,
-            height: 40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: Colors.white,
-                border: Border.all(
-                    width: 0.5, color: Colors.black.withOpacity(0.3))),
-            child: Center(child: Text('Nộp đơn ngay', style: fontButtonBlack)),
-          ),
-        );
-      }
-      return const SizedBox.shrink();
-    });
+Widget _buttonForm(
+  BuildContext context,
+  CampaignDataValidation validation,
+  CampaignModel checkList,
+) =>
+    StreamBuilder<bool>(
+        stream: validation.streamButtonForm,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!) {
+              return InkWell(
+                onTap: () {
+                  RouteNavigator.pushName(context, '/apply',
+                      arguments: checkList);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.white,
+                      border: Border.all(
+                          width: 0.5, color: Colors.black.withOpacity(0.3))),
+                  child: Center(
+                      child: Text('Nộp đơn ngay', style: fontButtonBlack)),
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          }
+          return const SizedBox.shrink();
+        });
 
 Widget _listDonated(List<ListUser> users, CampaignDataValidation validation) =>
     users.length > 0
@@ -211,167 +230,223 @@ Widget _listDonated(List<ListUser> users, CampaignDataValidation validation) =>
 class _CampaignPageState extends State<CampaignPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: StreamBuilder<CampaignModel>(
-              stream: widget.validation.streamCampaign,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Stack(
-                    children: [
-                      SingleChildScrollView(
+    return WillPopScope(
+      onWillPop: () async {
+        RouteNavigator.pushName(context, '/home');
+        return false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+            body: StreamBuilder<CampaignModel>(
+                stream: widget.validation.streamCampaign,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Stack(
+                      children: [
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _imageHeader(baseImage + snapshot.data!.image),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 40,
+                                    ),
+                                    _info(
+                                        name: snapshot.data!.info.name,
+                                        wallet: snapshot.data!.info.total,
+                                        receiver:
+                                            '${snapshot.data!.listUserReceiver.length}'),
+                                    const Divider(),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Tác vụ', style: fontTitle),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    _active(
+                                      context,
+                                      widget.validation,
+                                      campaign: snapshot.data!,
+                                    ),
+                                    const Divider(),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    TimeLine(
+                                      ticks: widget.validation
+                                          .indexTimeline(snapshot.data!),
+                                      date: widget.validation.timeRemaining(
+                                          snapshot.data!.info.disburStart),
+                                      timeLine: widget.validation
+                                          .timeLine(snapshot.data!),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                thickness: 10,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    const Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Nội dung chiến dịch',
+                                          style: fontTitle),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    ReadMoreText(
+                                      snapshot.data!.info.content,
+                                      textAlign: TextAlign.justify,
+                                      style: fontBody,
+                                      trimLines: 10,
+                                      colorClickableText: Colors.blue,
+                                      trimMode: TrimMode.Line,
+                                      trimCollapsedText: 'Xem thêm',
+                                      trimExpandedText: '\nThu gọn',
+                                      moreStyle: GoogleFonts.bitter(
+                                          fontSize: 14,
+                                          color: const Color.fromRGBO(
+                                              14, 152, 210, 1)),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    _buttonForm(context, widget.validation,
+                                        snapshot.data!),
+
+                                    ///
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                thickness: 10,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    const Text(
+                                      'Danh sách nhà hảo tâm',
+                                      style: fontTitle,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Text(
+                                      'Danh sách sẽ được cập nhật trực tiếp',
+                                      style: fontBody,
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    _listDonated(
+                                      snapshot.data!.listUserDonate,
+                                      widget.validation,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 100,
+                              ),
+                            ],
+                          ),
+                        ),
+                        _buttonDonate(context, snapshot.data!.idCaimpain,
+                            widget.validation),
+                        Positioned(
+                            left: 20,
+                            top: 20,
+                            child: IconButton(
+                                onPressed: () {
+                                  RouteNavigator.pushName(context, '/home');
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 24,
+                                  color: Colors.black,
+                                ))),
+                      ],
+                    );
+                  }
+                  return Shimmer.fromColors(
+                      baseColor: Colors.grey.withOpacity(0.3),
+                      highlightColor: Colors.white.withOpacity(0.3),
+                      child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            _imageHeader(baseUrl + snapshot.data!.image),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 40,
-                                  ),
-                                  _info(
-                                      name: snapshot.data!.info.name,
-                                      wallet: snapshot.data!.info.total,
-                                      receiver:
-                                          '${snapshot.data!.listUserReceiver.length}'),
-                                  const Divider(),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('Tác vụ', style: fontTitle),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  _active(
-                                    context,
-                                    widget.validation,
-                                    campaign: snapshot.data!,
-                                  ),
-                                  const Divider(),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  TimeLine(
-                                    ticks: widget.validation
-                                        .indexTimeline(snapshot.data!),
-                                    date: widget.validation.timeRemaining(
-                                        snapshot.data!.info.disburStart),
-                                    timeLine: widget.validation
-                                        .timeLine(snapshot.data!),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Divider(
-                              thickness: 10,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('Nội dung chiến dịch',
-                                        style: fontTitle),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  ReadMoreText(
-                                    snapshot.data!.info.content,
-                                    textAlign: TextAlign.justify,
-                                    style: fontBody,
-                                    trimLines: 10,
-                                    colorClickableText: Colors.blue,
-                                    trimMode: TrimMode.Line,
-                                    trimCollapsedText: 'Xem thêm',
-                                    trimExpandedText: '\nThu gọn',
-                                    moreStyle: GoogleFonts.bitter(
-                                        fontSize: 14,
-                                        color: const Color.fromRGBO(
-                                            14, 152, 210, 1)),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  _buttonForm(widget.validation),
-
-                                  ///
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Divider(
-                              thickness: 10,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  const Text(
-                                    'Danh sách nhà hảo tâm',
-                                    style: fontTitle,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Text(
-                                    'Danh sách sẽ được cập nhật trực tiếp',
-                                    style: fontBody,
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  _listDonated(
-                                    snapshot.data!.listUserDonate,
-                                    widget.validation,
-                                  ),
-                                ],
+                            Container(
+                              height: 150,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(
-                              height: 100,
+                              height: 10,
+                            ),
+                            Container(
+                              height: 300,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 500,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 200,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      _buttonDonate(context, snapshot.data!.idCaimpain,
-                          widget.validation),
-                      Positioned(
-                          left: 20,
-                          top: 20,
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed('/home');
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back_ios,
-                                size: 24,
-                                color: Colors.black,
-                              ))),
-                    ],
-                  );
-                }
-                return const SizedBox.shrink();
-              })),
+                      ));
+                })),
+      ),
     );
   }
 }

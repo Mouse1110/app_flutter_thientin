@@ -3,10 +3,11 @@ import 'package:app_flutter_thientin/src/donate/views/view.dart';
 import 'package:app_flutter_thientin/src/home/cubit/home_cubit.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/splash/index.dart';
-import 'package:app_flutter_thientin/src/utils/notification.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../routes/routes_navigator.dart';
 import '../transaction/cubit/transaction_cubit.dart';
 import '../utils/money_format.dart';
 import 'views/validations/data_validation.dart';
@@ -26,6 +27,7 @@ class _DonateState extends State<Donate> {
 
   @override
   void initState() {
+    context.read<DonateCubit>().initial();
     context
         .read<DonateCubit>()
         .fetchTotalApi(context.read<LoginCubit>().user!.accessToken);
@@ -53,7 +55,8 @@ class _DonateState extends State<Donate> {
               payload: '/transaction|${widget.id}',
               body:
                   'Cảm ơn bạn đã ủng hộ chiến dịch với số tiền: ${MoneyFormat.formatMoney('${state.amount}')}');
-          Navigator.pop(context);
+          RouteNavigator.pushName(context, '/campaign',
+              arguments: '${widget.id}');
         } else if (state is DonateTotalLoaded) {
           validation.addTotal(state.total);
         }

@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:app_flutter_thientin/src/home/models/campaign_model.dart';
+import 'package:app_flutter_thientin/src/routes/routes_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../login/cubit/login_cubit.dart';
 import '../constants/color_constant.dart';
+import '../cubit/home_cubit.dart';
 import 'components/button_event.dart';
 import 'components/campain_new_page.dart';
 import 'components/float_button.dart';
@@ -20,7 +26,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget _header() => StreamBuilder<Object>(
+  Widget _header() => StreamBuilder<CampaignModel>(
       stream: widget.validation.streamCampaign,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -47,8 +53,8 @@ class _HomePageState extends State<HomePage> {
               CampaignOutStanding(
                   data: snapshot.data as CampaignModel,
                   onClick: () {
-                    Navigator.of(context)
-                        .pushNamed('/campaign', arguments: snapshot.data);
+                    RouteNavigator.pushName(context, '/campaign',
+                        arguments: '${snapshot.data!.idCaimpain}');
                   }),
             ],
           );
@@ -56,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         return const ShimmerHeader();
       });
 
-  Widget _still() => StreamBuilder<Object>(
+  Widget _still() => StreamBuilder<List<CampaignModel>>(
       stream: widget.validation.streamListCampaign,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -70,8 +76,9 @@ class _HomePageState extends State<HomePage> {
                       ItemCampain(
                         data: (snapshot.data as List)[index],
                         onClick: () {
-                          Navigator.of(context).pushNamed('/campaign',
-                              arguments: (snapshot.data as List)[index]);
+                          print('${snapshot.data![index].idCaimpain}');
+                          RouteNavigator.pushName(context, '/campaign',
+                              arguments: '${snapshot.data![index].idCaimpain}');
                         },
                       ),
                       const Divider(
@@ -120,45 +127,63 @@ class _HomePageState extends State<HomePage> {
       });
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
+    return WillPopScope(
+      onWillPop: () async {
+        exit(0);
+      },
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: RefreshIndicator(
+            onRefresh: () async {
+              context
+                  .read<HomeCubit>()
+                  .fetchCampaignApi(
+                      accessToken: context.read<LoginCubit>().user!.accessToken)
+                  .then((value) => context
+                      .read<HomeCubit>()
+                      .fetchListCampaignApi(
+                          accessToken:
+                              context.read<LoginCubit>().user!.accessToken));
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _header(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Divider(
+                    color: fontColor,
+                  ),
+                  const SizedBox(height: 10),
+                  _eventCampaign(),
+                  const SizedBox(height: 10),
+                  _still(),
+                  const SizedBox(height: 60),
+                ],
               ),
-              _header(),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(
-                color: fontColor,
-              ),
-              const SizedBox(height: 10),
-              _eventCampaign(),
-              const SizedBox(height: 10),
-              _still(),
-              const SizedBox(height: 60),
-            ],
+            ),
           ),
-        ),
-        floatingActionButton: StreamBuilder<bool>(
-            stream: widget.validation.streamButtonCreateCampaign,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data!) {
-                  return FloatButton(
-                    press: () {
-                      Navigator.of(context).pushNamed('/create_campaign');
-                    },
-                  );
+          floatingActionButton: StreamBuilder<bool>(
+              stream: widget.validation.streamButtonCreateCampaign,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return FloatButton(
+                      press: () {
+                        Navigator.of(context).pushNamed('/create_campaign');
+                      },
+                    );
+                  }
+                  return const SizedBox.shrink();
                 }
                 return const SizedBox.shrink();
-              }
-              return const SizedBox.shrink();
-            }),
+              }),
+        ),
       ),
     );
   }

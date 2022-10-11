@@ -11,7 +11,9 @@ class ApiService {
     required int amount,
   }) async {
     try {
+      print(amount);
       final Response response = await _dio.post('${baseUrl}action/charity/$id',
+          data: {"total": amount},
           options: Options(
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",

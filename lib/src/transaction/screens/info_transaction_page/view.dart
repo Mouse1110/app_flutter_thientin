@@ -140,25 +140,35 @@ class _InfoTransactionPageState extends State<InfoTransactionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const TitleComponent(),
-              const SizedBox(
-                height: 10,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 20,
-              ),
-              _transaction(),
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.read<TransactionCubit>().changePage(0);
+        return false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                TitleComponent(
+                  back: () {
+                    context.read<TransactionCubit>().changePage(0);
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 20,
+                ),
+                _transaction(),
+              ],
+            ),
           ),
         ),
       ),

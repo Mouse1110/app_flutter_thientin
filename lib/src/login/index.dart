@@ -1,6 +1,7 @@
-import 'package:app_flutter_thientin/src/components/flash_message_component.dart';
 import 'package:app_flutter_thientin/src/login/cubit/login_cubit.dart';
 import 'package:app_flutter_thientin/src/login/screens/index_page/view.dart';
+import 'package:app_flutter_thientin/src/login/screens/login_page/view.dart';
+import 'package:app_flutter_thientin/src/login/screens/signup_page/view.dart';
 import 'package:app_flutter_thientin/src/splash/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,9 +17,17 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   @override
+  void initState() {
+    context.read<LoginCubit>().initial = 0;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-      if (state is LoginLoading) {
+      if (state is LoginInitial) {
+        print('LoginInitial');
+      } else if (state is LoginLoading) {
         print("Login Loading");
         return const Splash();
       } else if (state is LoginError) {
@@ -30,7 +39,16 @@ class _LoginState extends State<Login> {
         print("Login Nav");
         return state.page;
       }
-      return const IndexLoginPage();
+      switch (context.read<LoginCubit>().initial) {
+        case 0:
+          return const IndexLoginPage();
+        case 1:
+          return const LoginPage();
+        case 2:
+          return const SignUpPage();
+        default:
+          return const SizedBox.shrink();
+      }
     });
   }
 }
